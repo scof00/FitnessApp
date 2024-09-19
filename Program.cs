@@ -1,4 +1,6 @@
 
+using FitnessApp.Repositories;
+
 namespace FitnessApp
 {
     public class Program
@@ -13,6 +15,8 @@ namespace FitnessApp
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddTransient<IMuscleGroupRepository, MuscleGroupRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
