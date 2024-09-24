@@ -1,0 +1,32 @@
+.navbar{
+    display: flex;
+    flex-direction: column;
+    background-color: #80ED99;
+    width: 15vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#root{
+    margin-right: 5vw;
+    height: 100vh;
+    margin-top: 10vh;
+}
+.navButton{
+    height: 50px;
+    width: 50px;
+    background-color: #61D5EE;
+    border-radius: 10px;
+    border: none;
+    font-size: 10px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+}
