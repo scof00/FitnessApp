@@ -30,3 +30,29 @@
     text-decoration: none;
     list-style: none;
 }
+.btn-primary{
+    height: 50px;
+    width: 50px;
+    background-color: #61D5EE !important;
+    border-radius: 10px;
+    border: none;
+    font-size: 10px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbarLogo{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+}
