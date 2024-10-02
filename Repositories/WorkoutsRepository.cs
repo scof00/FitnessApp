@@ -16,6 +16,7 @@ namespace FitnessApp.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT Id, Name, UserId FROM Workouts WHERE userId= @id ";
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
                     var workouts = new List<Workouts>();
@@ -43,6 +44,7 @@ namespace FitnessApp.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT Id, Name, UserId FROM Workouts WHERE Id= @id ";
+                    DbUtils.AddParameter(cmd, "@id", id);
                     var reader = cmd.ExecuteReader();
                     Workouts workout = null;
 
@@ -89,6 +91,7 @@ namespace FitnessApp.Repositories
                 {
                     cmd.CommandText = @"UPDATE Workouts SET name = @name WHERE Id = @id";
                     DbUtils.AddParameter(cmd, "@name", workout.Name);
+                    DbUtils.AddParameter(cmd, "@id", workout.Id);
 
                     cmd.ExecuteNonQuery();
                 }

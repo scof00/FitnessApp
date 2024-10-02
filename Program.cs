@@ -19,6 +19,8 @@ namespace FitnessApp
             builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.Services.AddTransient<IBiometricsRepository, BiometricsRepository>();
             builder.Services.AddTransient<IWorkoutsRepository, WorkoutsRepository>();
+            builder.Services.AddTransient<IExercisesRepository, ExercisesRepository>();
+            builder.Services.AddTransient<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
 
             var app = builder.Build();
 

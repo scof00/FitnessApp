@@ -6,5 +6,6 @@
         public string Name { get; set; }
         public int MuscleId { get; set; }
         public int UserId { get; set; }
+        public MuscleGroups? muscle {  get; set; }
     }
 }
