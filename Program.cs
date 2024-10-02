@@ -17,6 +17,7 @@ namespace FitnessApp
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<IMuscleGroupRepository, MuscleGroupRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IBiometricsRepository, BiometricsRepository>();
 
             var app = builder.Build();
 
