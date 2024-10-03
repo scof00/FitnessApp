@@ -12,8 +12,8 @@
         public DateTime dateCompleted { get; set; }
         public string Notes { get; set; }
         public string WeightType { get; set; }
-        public User user { get; set; }
-        public Exercises exercise { get; set; }
-        public Workouts workout { get; set; }
+        public User? user { get; set; }
+        public Exercises? exercise { get; set; }
+        public Workouts? workout { get; set; }
     }
 }
