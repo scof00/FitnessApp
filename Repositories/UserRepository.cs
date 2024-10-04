@@ -75,7 +75,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Users (UserName, Password, isAdmin) OUTPUT INSERTED.ID (@username, @password, @isadmin)";
+                    cmd.CommandText = @"INSERT INTO Users (UserName, Password, isAdmin) OUTPUT INSERTED.ID VALUES (@username, @password, @isadmin)";
                     DbUtils.AddParameter(cmd, "@username", user.UserName);
                     DbUtils.AddParameter(cmd, "@password", user.Password);
                     DbUtils.AddParameter(cmd, "@isadmin", user.isAdmin);

@@ -7,7 +7,7 @@ namespace FitnessApp.Repositories
         void Add(Biometrics biometrics);
         void Delete(int id);
         List<Biometrics> GetAll();
-        Biometrics GetById(int id);
+        Biometrics GetByUserId(int id);
         void Update(Biometrics biometrics);
     }
 }

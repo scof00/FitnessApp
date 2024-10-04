@@ -68,7 +68,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Muscles (Name) OUPUT INSERTED.ID VALUES (@name)";
+                    cmd.CommandText = @"INSERT INTO Muscles (Name) OUTPUT INSERTED.ID VALUES (@name)";
                     DbUtils.AddParameter(cmd, "@name", muscleGroups.Name);
 
                     muscleGroups.Id = (int)cmd.ExecuteScalar();

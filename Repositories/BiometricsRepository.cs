@@ -14,7 +14,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT b.Id as BioId, age, height, weight, username FROM Biometrics as b LEFT JOIN Users on userId = Users.id ";
+                    cmd.CommandText = @"SELECT b.Id as BioId, age, height, weight, userId, username FROM Biometrics as b LEFT JOIN Users on userId = Users.id ";
                     var reader = cmd.ExecuteReader();
                     var biometrics = new List<Biometrics>();
                     while (reader.Read())
@@ -33,14 +33,15 @@ namespace FitnessApp.Repositories
                 }
             }
         }
-        public Biometrics GetById(int id)
+        public Biometrics GetByUserId(int id)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT b.Id as BioId, age, height, weight, username FROM Biometrics as b LEFT JOIN Users on userId = Users.id WHERE userId = @id";
+                    cmd.CommandText = @"SELECT b.Id as BioId, age, height, weight, username, userId FROM Biometrics as b LEFT JOIN Users on userId = Users.id WHERE userId = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
 
@@ -73,11 +74,11 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Biometrics (userId, height, weight, age) OUTPUT INSERTED.ID (@userId, @height, @weight, @age)";
+                    cmd.CommandText = @"INSERT INTO Biometrics (userId, height, weight, age) OUTPUT INSERTED.ID VALUES(@userId, @height, @weight, @age)";
                     DbUtils.AddParameter(cmd, "@userId", biometrics.UserId);
                     DbUtils.AddParameter(cmd, "@height", biometrics.Height);
                     DbUtils.AddParameter(cmd, "@weight", biometrics.Weight);
-                    DbUtils.AddParameter(cmd, "@age", biometrics.Height);
+                    DbUtils.AddParameter(cmd, "@age", biometrics.Age);
 
                     biometrics.Id = (int)cmd.ExecuteScalar();
                 }
@@ -94,7 +95,7 @@ namespace FitnessApp.Repositories
                     cmd.CommandText = @"UPDATE Biometrics SET height = @height, weight = @weight, age = @age WHERE Id = @id";
                     DbUtils.AddParameter(cmd, "@height", biometrics.Height);
                     DbUtils.AddParameter(cmd, "@weight", biometrics.Weight);
-                    DbUtils.AddParameter(cmd, "@age", biometrics.Height);
+                    DbUtils.AddParameter(cmd, "@age", biometrics.Age);
                     DbUtils.AddParameter(cmd, "@id", biometrics.Id);
 
                     cmd.ExecuteNonQuery();
