@@ -3,7 +3,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { Home } from "./Components/Home";
 import { Workouts } from "./Components/Workouts/Workouts";
 
-export const AdminView = () => {
+export const AdminView = ({currentUser}) => {
     return (
         <Routes>
           <Route
@@ -15,8 +15,9 @@ export const AdminView = () => {
               </>
             }
           >
-            <Route index path="/" element={<Home/>} />
-            <Route path="workouts" element={<Workouts />} />
+            <Route index path="/" element={<Home currentUser={currentUser}/>} />
+            <Route path="workouts" element={<Workouts currentUser={currentUser}/>} />
+            <Route path="exercises" element={<Exercises currentUser={currentUser} />} />
     
           </Route>
         </Routes>

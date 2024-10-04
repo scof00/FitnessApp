@@ -7,9 +7,10 @@ import LogLogo from "../../assets/calendar-days-svgrepo-com.svg";
 import SleepTrackerLogo from "../../assets/bed-svgrepo-com.svg";
 import DietTrackerLogo from "../../assets/food-dish-svgrepo-com.svg";
 import TrainerLogo from "../../assets/muscle-up-svgrepo-com.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../Managers/UserManager";
 export const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="navbar">
       <div>
@@ -32,12 +33,14 @@ export const Navbar = () => {
             </div>
           </button>
         </Link>
-        <button type="button" className="btn btn-primary">
-          <div>
-            <img className="navbarLogo" src={ExerciseLogo}></img>
-            Exercises
-          </div>
-        </button>
+        <Link to="exercises">
+          <button type="button" className="btn btn-primary">
+            <div>
+              <img className="navbarLogo" src={ExerciseLogo}></img>
+              Exercises
+            </div>
+          </button>
+        </Link>
         <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={LogLogo}></img>
           Log
@@ -59,10 +62,13 @@ export const Navbar = () => {
           Settings
         </button>
         <button type="button" className="btn btn-primary">
-          <a onClick={() => {
-            logout();
-            window.location.reload()
-          }}>
+          <a
+            onClick={() => {
+              logout();
+              navigate("/");
+              window.location.reload();
+            }}
+          >
             Logout
           </a>
         </button>
