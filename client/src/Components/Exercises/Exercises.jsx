@@ -18,16 +18,15 @@ export const Exercises = ({ currentUser }) => {
 
   return (
     <div>
+      <h2>Your Exercises</h2>
       <Accordion defaultActiveKey="0">
         {muscles.map((m) => {
           return (
             <Accordion.Item eventKey={m.id}>
               <Accordion.Header>{m.name}</Accordion.Header>
               {exercises.map((e) => {
-                if(e.muscleId === m.id)
-                    return(
-                <Accordion.Body>{e.name}</Accordion.Body>
-                )
+                if (e.muscleId === m.id)
+                  return <Accordion.Body>{e.name}</Accordion.Body>;
               })}
             </Accordion.Item>
           );

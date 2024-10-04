@@ -12,4 +12,4 @@ SELECT WorkoutExercises.id as Id, workoutId, exerciseId, Workouts.name as Workou
 
 SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, p.workoutId as WorkoutId, reps, sets, weight, completionDate, notes, weightType, Workouts.name as WorkoutName, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id LEFT JOIN Workouts on workoutId = Workouts.id WHERE p.id = 1
 
-SELECT * FROM Users WHERE username = 'admin' AND password = 'adminpassword'
+SELECT * FROM Users

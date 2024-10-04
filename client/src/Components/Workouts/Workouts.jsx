@@ -17,6 +17,7 @@ export const Workouts = ({ currentUser }) => {
 
   return (
     <div>
+      <h2>Your Workouts</h2>
       <Accordion defaultActiveKey="0">
         {workouts.map((workout) => {
             return(
