@@ -18,7 +18,7 @@ export const Login = ({setIsLoggedIn}) => {
         if(r){
             const userProfile = {
                 id: r.id,
-                username: r.username,
+                username: r.userName,
                 isAdmin: r.isAdmin
             }
             localStorage.setItem("FitnessAppUser", JSON.stringify(userProfile))
