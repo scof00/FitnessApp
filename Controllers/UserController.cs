@@ -35,6 +35,17 @@ namespace FitnessApp.Controllers
             return Ok(user);
         }
 
+        [HttpGet("GetByUsernameAndPassword")]
+        public IActionResult GetByUsernameAndPassword(string username, string password)
+        {
+            var user = _userRepository.GetByUsernameAndPassword(username, password);    
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
         // POST api/<UserController>
         [HttpPost]
         public IActionResult Post(User user)

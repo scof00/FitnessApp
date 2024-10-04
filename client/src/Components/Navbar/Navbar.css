@@ -1,7 +1,7 @@
 .navbar{
     display: flex;
     flex-direction: column;
-    background-color: #80ED99;
+    background-color: #61D5EE;
     width: 15vw;
     height: 100vh;
     position: fixed;
@@ -33,7 +33,7 @@
 .btn-primary{
     height: 50px;
     width: 50px;
-    background-color: #61D5EE !important;
+    background-color: white !important;
     border-radius: 10px;
     border: none;
     font-size: 10px;

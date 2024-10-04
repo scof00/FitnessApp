@@ -8,6 +8,7 @@ namespace FitnessApp.Repositories
         void Delete(int id);
         List<User> GetAll();
         User GetById(int id);
+        User GetByUsernameAndPassword(string username, string password);
         void Update(User user);
     }
 }

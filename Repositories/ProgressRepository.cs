@@ -254,7 +254,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Progress SET exerciseId = @exerciseId, workoutId = @workoutId, reps = @reps, sets = @sets, weight = @weight, completionDate = @completionDate. notes = @notes, weightType = @weightType WHERE Id = @id";
+                    cmd.CommandText = @"UPDATE Progress SET exerciseId = @exerciseId, workoutId = @workoutId, reps = @reps, sets = @sets, weight = @weight, completionDate = @completionDate, notes = @notes, weightType = @weightType WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@exerciseId", progress.ExerciseId);
                     DbUtils.AddParameter(cmd, "@workoutId", progress.WorkoutId);

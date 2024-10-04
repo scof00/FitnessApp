@@ -68,6 +68,40 @@ namespace FitnessApp.Repositories
             }
         }
 
+        public User GetByUsernameAndPassword (string username, string password)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, UserName, Password, isAdmin FROM Users WHERE Username = @username AND Password = @password";
+                    DbUtils.AddParameter(cmd, "@username", username);
+                    DbUtils.AddParameter(cmd, "@password", password);
+
+                    var reader = cmd.ExecuteReader();
+
+                    User user = null;
+
+                    while (reader.Read())
+                    {
+                        if (user == null)
+                        {
+                            user = new User()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                UserName = DbUtils.GetString(reader, "UserName"),
+                                Password = DbUtils.GetString(reader, "Password"),
+                                isAdmin = DbUtils.GetBoolean(reader, "isAdmin")
+                            };
+                        }
+                    }
+                    reader.Close();
+                    return user;
+                }
+            }
+        }
+
         public void Add(User user)
         {
             using (var conn = Connection)
