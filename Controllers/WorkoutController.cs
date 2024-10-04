@@ -24,6 +24,12 @@ namespace FitnessApp.Controllers
             return Ok(_workoutsRepository.GetAllByUserId(id));
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_workoutsRepository.GetAll());
+        }
+
         // GET api/<WorkoutController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)

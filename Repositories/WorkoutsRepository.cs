@@ -36,6 +36,33 @@ namespace FitnessApp.Repositories
             }
         }
 
+        public List<Workouts> GetAll()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id, Name, UserId FROM Workouts";
+
+                    var reader = cmd.ExecuteReader();
+                    var workouts = new List<Workouts>();
+
+                    while (reader.Read())
+                    {
+                        workouts.Add(new Workouts()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                            userId = DbUtils.GetInt(reader, "UserId"),
+                        });
+                    }
+                    reader.Close();
+                    return workouts;
+                }
+            }
+        }
+
         public Workouts GetById(int id)
         {
             using (var conn = Connection)

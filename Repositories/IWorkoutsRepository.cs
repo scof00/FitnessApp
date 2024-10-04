@@ -6,6 +6,7 @@ namespace FitnessApp.Repositories
     {
         void Add(Workouts workout);
         void Delete(int id);
+        List<Workouts> GetAll();
         List<Workouts> GetAllByUserId(int id);
         Workouts GetById(int id);
         void Update(Workouts workout);

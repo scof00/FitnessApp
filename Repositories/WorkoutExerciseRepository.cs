@@ -65,6 +65,41 @@ namespace FitnessApp.Repositories
             }
         }
 
+        public WorkoutExercises GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using ( var cmd = conn.CreateCommand())
+                {
+
+                    cmd.CommandText = @"SELECT WorkoutExercises.id as Id, workoutId, exerciseId, Workouts.name as WorkoutName, Exercises.name as ExerciseName FROM WorkoutExercises LEFT JOIN Workouts on workoutId = Workouts.id LEFT JOIN Exercises on exerciseId = Exercises.id WHERE WorkoutExercises.Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    var reader = cmd.ExecuteReader();
+
+                    WorkoutExercises workoutExercises = null;
+
+                    while (reader.Read())
+                    {
+                        if (workoutExercises == null)
+                        {
+                            workoutExercises = new WorkoutExercises()
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                WorkoutId = DbUtils.GetInt(reader, "workoutId"),
+                                workoutName = DbUtils.GetString(reader, "WorkoutName"),
+                                ExerciseId = DbUtils.GetInt(reader, "exerciseId"),
+                                exerciseName = DbUtils.GetString(reader, "ExerciseName")
+                            };
+                        }
+                    }
+                    reader.Close();
+                    return workoutExercises;
+                }
+            }
+        }
+
         public void Add(WorkoutExercises workoutExercises)
         {
             using (var conn = Connection)
@@ -72,7 +107,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO WorkoutExercises (WorkoutId, ExerciseId) OUTPUT INSERTED.ID (@workoutId, @exerciseId)";
+                    cmd.CommandText = @"INSERT INTO WorkoutExercises (WorkoutId, ExerciseId) OUTPUT INSERTED.ID VALUEs(@workoutId, @exerciseId)";
                     DbUtils.AddParameter(cmd, "@workoutId", workoutExercises.WorkoutId);
                     DbUtils.AddParameter(cmd, "@exerciseId", workoutExercises.ExerciseId);
 
