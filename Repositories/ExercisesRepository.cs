@@ -82,7 +82,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT e.id as ExerciseId, e.muscleId as MuscleId, e.name as ExerciseName, userId, m.name as MuscleName FROM Exercises as e LEFT JOIN Muscles as m on muscleId = m.id WHERE Id = @id";
+                    cmd.CommandText = @"SELECT e.id as ExerciseId, e.muscleId as MuscleId, e.name as ExerciseName, userId, m.name as MuscleName FROM Exercises as e LEFT JOIN Muscles as m on muscleId = m.id WHERE e.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
