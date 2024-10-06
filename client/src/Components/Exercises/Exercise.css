@@ -1,6 +1,9 @@
 .exerciseCreateForm{
     width: 60vw;
 }
+.exerciseDeleteForm{
+    width: 60vw;
+}
 
 .exerciseFormInput{
     margin-top: 5vw;

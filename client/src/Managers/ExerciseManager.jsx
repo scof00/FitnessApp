@@ -25,3 +25,7 @@ export const updateExercise = (e) => {
         body: JSON.stringify(e)
     })
 }
+
+export const deleteExercise = (id) => {
+    return fetch(`https://localhost:5001/api/Exercise/${id}`, {method:"DELETE"})
+}

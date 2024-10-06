@@ -37,7 +37,7 @@ export const Exercises = ({ currentUser }) => {
                             <Link to={`edit/${e.id}`}>
                               <PencilSquare />
                             </Link>
-                            <Link>
+                            <Link to={`delete/${e.id}`}>
                               <Trash />
                             </Link>
                           </div>

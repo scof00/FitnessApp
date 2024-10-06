@@ -6,6 +6,7 @@ import { Exercises } from "./Components/Exercises/Exercises";
 import { WorkoutCreate } from "./Components/Workouts/WorkoutCreate";
 import { ExerciseCreate } from "./Components/Exercises/ExerciseCreate";
 import { ExerciseEdit } from "./Components/Exercises/ExerciseEdit";
+import { ExerciseDelete } from "./Components/Exercises/ExerciseDelete";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -40,6 +41,7 @@ export const UserView = ({ currentUser }) => {
           path="exercises/edit/:exerciseId"
           element={<ExerciseEdit currentUser={currentUser} />}
         />
+        <Route path="exercises/delete/:exerciseId" element={<ExerciseDelete currentUser={currentUser} />} />
       </Route>
     </Routes>
   );
