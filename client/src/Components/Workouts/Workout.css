@@ -1,0 +1,10 @@
+.accordionItem{
+    border-color: #61D5EE;
+    border-width: 2px;
+    width: 60vw;
+}
+
+.accordion{
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+}
