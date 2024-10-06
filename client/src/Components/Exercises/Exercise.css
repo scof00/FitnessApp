@@ -1,0 +1,20 @@
+.exerciseCreateForm{
+    width: 60vw;
+}
+
+.exerciseFormInput{
+    margin-top: 5vw;
+}
+
+.exerciseButton{
+    background-color: #61D5EE;
+    margin-bottom: 2vw;
+    margin-top: 5vw;
+}
+
+.editAndDelete{
+    display: flex;
+    text-align: right;
+    align-items: center;
+    justify-content: space-between;
+}

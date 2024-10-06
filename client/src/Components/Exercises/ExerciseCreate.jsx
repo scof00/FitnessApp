@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMuscles } from "../../Managers/MuscleManager";
 import { Input } from "reactstrap";
 import { createExercise } from "../../Managers/ExerciseManager";
+import "./Exercise.css"
 
 export const ExerciseCreate = ({ currentUser }) => {
   const [exercise, setExercise] = useState({});
@@ -32,10 +33,11 @@ export const ExerciseCreate = ({ currentUser }) => {
   };
 
   return (
-    <form>
+    <form className="exerciseCreateForm">
       <h2>Add a new exercise</h2>
       <fieldset>
         <Input
+        className="exerciseFormInput"
           id="muscleSelect"
           name="select"
           type="select"
@@ -61,6 +63,7 @@ export const ExerciseCreate = ({ currentUser }) => {
           id="exerciseName"
           name="exerciseName"
           placeholder="Exercise Name"
+          className="exerciseFormInput"
           required
           onChange={(event) => {
             const exerciseCopy = { ...exercise };
@@ -70,8 +73,11 @@ export const ExerciseCreate = ({ currentUser }) => {
         ></Input>
       </fieldset>
       <fieldset>
-        <button onClick={handleSave}>Create Exercise</button>
+        <button onClick={handleSave} className="exerciseButton">Create Exercise</button>
       </fieldset>
+      <Link to="/exercises">
+      <p>Cancel</p>
+      </Link>
     </form>
   );
 };

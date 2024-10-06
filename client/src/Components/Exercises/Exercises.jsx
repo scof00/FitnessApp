@@ -3,6 +3,7 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { Link } from "react-router-dom";
+import { Pen, PencilSquare, Trash } from "react-bootstrap-icons";
 
 export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
@@ -27,14 +28,30 @@ export const Exercises = ({ currentUser }) => {
               <Accordion.Header>{m.name}</Accordion.Header>
               {exercises.map((e) => {
                 if (e.muscleId === m.id)
-                  return <Accordion.Body>{e.name}</Accordion.Body>;
+                  return (
+                    <div>
+                      <Accordion.Body>
+                        <div className="editAndDelete">
+                          {e.name}
+                          <div>
+                            <Link to={`edit/${e.id}`}>
+                              <PencilSquare />
+                            </Link>
+                            <Link>
+                              <Trash />
+                            </Link>
+                          </div>
+                        </div>
+                      </Accordion.Body>
+                    </div>
+                  );
               })}
             </Accordion.Item>
           );
         })}
       </Accordion>
       <Link to="/exercises/create">
-      <button>Create New Exercise</button>
+        <button className="exerciseButton">Create New Exercise</button>
       </Link>
     </div>
   );
