@@ -45,14 +45,14 @@ export const Navbar = () => {
           <img className="navbarLogo" src={LogLogo}></img>
           Log
         </button>
-        <button type="button" className="btn btn-primary">
+        {/* <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={SleepTrackerLogo}></img>
           Sleep
         </button>
         <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={DietTrackerLogo}></img>
           Diet
-        </button>
+        </button> */}
         <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={BiometricsLogo}></img>
           Biometrics

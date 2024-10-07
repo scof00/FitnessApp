@@ -4,6 +4,7 @@ import { Form, Link, useNavigate } from "react-router-dom";
 import { Input, Label } from "reactstrap";
 import { login } from "../../Managers/UserManager";
 import { Button } from "bootstrap";
+import "./Authorization.css"
 
 export const Login = ({setIsLoggedIn}) => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export const Login = ({setIsLoggedIn}) => {
   }
 
   return (
-    <form>
+    <form className="loginForm">
       <fieldset>
         <FormGroup>
           <Label for="username">Username</Label>

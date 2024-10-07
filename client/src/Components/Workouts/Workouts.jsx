@@ -2,14 +2,18 @@ import { useEffect, useState } from "react";
 import { GetWorkoutsByUserId } from "../../Managers/WorkoutManager";
 import { Accordion, AccordionItem } from "react-bootstrap";
 import "./Workout.css";
-import { Link } from "react-router-dom";
-import { getExerciseByWorkoutId, getWorkoutExercise } from "../../Managers/WorkoutExerciseManager";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  getExerciseByWorkoutId,
+  getWorkoutExercise,
+} from "../../Managers/WorkoutExerciseManager";
+import { PencilSquare, Trash } from "react-bootstrap-icons";
 
 export const Workouts = ({ currentUser }) => {
   const [workouts, setWorkouts] = useState([]);
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const user = localStorage.getItem("FitnessAppUser");
-  console.log(currentUser);
+  const navigate = useNavigate();
 
   const getWorkouts = () => {
     GetWorkoutsByUserId(currentUser.id).then((data) => setWorkouts(data));
@@ -19,7 +23,7 @@ export const Workouts = ({ currentUser }) => {
     getWorkouts();
   }, [currentUser]);
   useEffect(() => {
-    getWorkoutExercise().then((data) => setWorkoutExercises(data))
+    getWorkoutExercise().then((data) => setWorkoutExercises(data));
   }, []);
 
   return (
@@ -31,13 +35,25 @@ export const Workouts = ({ currentUser }) => {
             <Accordion.Item eventKey={workout.id} className="accordionItem">
               <Accordion.Header>{workout.name}</Accordion.Header>
               {workoutExercises.map((we) => {
-                if(we.workoutId === workout.id) {
-                  return(
-                    <Accordion.Body>{we.exerciseName}</Accordion.Body>
-                  )
+                if (we.workoutId === workout.id) {
+                  return <Accordion.Body>{we.exerciseName}</Accordion.Body>;
                 }
               })}
-              
+              <Accordion.Body>
+                <div className="editAndDelete">
+                  <button className="exerciseButton">Start</button>
+                  <div>
+                    <PencilSquare onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`edit/${workout.id}`)
+                    }}/>
+                    <Trash onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`delete/${workout.id}`)
+                    }}/>
+                  </div>
+                </div>
+              </Accordion.Body>
             </Accordion.Item>
           );
         })}

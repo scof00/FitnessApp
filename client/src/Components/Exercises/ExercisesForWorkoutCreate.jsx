@@ -3,9 +3,9 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { Link } from "react-router-dom";
-import { Pen, PencilSquare, Trash } from "react-bootstrap-icons";
+import { Pen, PencilSquare, Plus, Trash } from "react-bootstrap-icons";
 
-export const ExercisesForUse = ({ currentUser }) => {
+export const ExercisesForUse = ({ currentUser, setWorkoutExercises, workoutExercises }) => {
   const [muscles, setMuscles] = useState([]);
   const [exercises, setExercises] = useState([]);
   const user = currentUser;
@@ -33,7 +33,12 @@ export const ExercisesForUse = ({ currentUser }) => {
                         <div className="editAndDelete">
                           {e.name}
                           <div>
-                            
+                            <button onClick={(event) => {
+                              event.stopPropagation();
+                              let workoutExercisesCopy = [...workoutExercises];
+                              workoutExercisesCopy.push(parseInt(e.id));
+                              setWorkoutExercises(workoutExercisesCopy)
+                            }}><Plus /></button>
                           </div>
                         </div>
                       </Accordion.Body>

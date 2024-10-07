@@ -20,7 +20,7 @@ namespace FitnessApp.Controllers
 
         // GET: api/<WorkoutExerciseController>
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             return Ok(_workoutExerciseRepository.GetAll());
         }
@@ -69,5 +69,12 @@ namespace FitnessApp.Controllers
             _workoutExerciseRepository.Delete(id);
             return NoContent();
         }
+        [HttpDelete("workoutId={id}")]
+        public IActionResult DeleteByWorkoutId(int id)
+        {
+            _workoutExerciseRepository.DeleteByWorkoutId(id);
+            return NoContent();
+        }
+
     }
 }

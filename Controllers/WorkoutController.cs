@@ -16,19 +16,19 @@ namespace FitnessApp.Controllers
         {
             _workoutsRepository = workoutsRepository;
         }
-
         // GET: api/<WorkoutController>
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_workoutsRepository.GetAll());
+        }
+       
         [HttpGet("userId={id}")]
         public IActionResult GetAllByUserId(int id)
         {
             return Ok(_workoutsRepository.GetAllByUserId(id));
         }
-
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            return Ok(_workoutsRepository.GetAll());
-        }
+        
 
         // GET api/<WorkoutController>/5
         [HttpGet("{id}")]

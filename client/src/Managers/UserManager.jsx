@@ -18,3 +18,13 @@ export const login = (username, password) => {
 export const logout = () => {
     localStorage.clear();
 }
+
+export const CreateUser = (u) => {
+    return fetch(`${apiUrl}/api/User`, {
+        method:"POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(u)
+    })
+}
