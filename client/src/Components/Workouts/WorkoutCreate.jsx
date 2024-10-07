@@ -79,7 +79,7 @@ export const WorkoutCreate = ({ currentUser }) => {
                   <div className="editAndDelete">
                     {e.name}
                     <div>
-                      <XSquare
+                      <XSquare size={25}
                         onClick={(event) => {
                           event.stopPropagation();
                           removeExercise(e.id);

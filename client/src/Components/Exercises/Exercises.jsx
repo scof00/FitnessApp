@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Pen, PencilSquare, Trash } from "react-bootstrap-icons";
 
 export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
   const [exercises, setExercises] = useState([]);
   const user = currentUser;
+  const navigate=useNavigate();
 
   useEffect(() => {
     getMuscles().then((data) => setMuscles(data));
@@ -35,10 +36,10 @@ export const Exercises = ({ currentUser }) => {
                           {e.name}
                           <div>
                             <Link to={`edit/${e.id}`}>
-                              <PencilSquare />
+                              <PencilSquare size={25}/>
                             </Link>
                             <Link to={`delete/${e.id}`}>
-                              <Trash />
+                              <Trash size={25}/>
                             </Link>
                           </div>
                         </div>

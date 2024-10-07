@@ -12,3 +12,20 @@
 .workoutCreateForm{
     width: 60vw;
 }
+.progressInput{
+    width: 30vw;
+    margin: 1vw;
+}
+
+.workoutInProgress{
+    width: 60vw;
+}
+
+.progressInfo{
+    display: flex;
+    flex-direction: row;
+}
+
+.notesInput{
+    margin: 1vw;
+}

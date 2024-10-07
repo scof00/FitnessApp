@@ -33,12 +33,12 @@ export const ExercisesForUse = ({ currentUser, setWorkoutExercises, workoutExerc
                         <div className="editAndDelete">
                           {e.name}
                           <div>
-                            <button onClick={(event) => {
+                            <Plus size={30} onClick={(event) => {
                               event.stopPropagation();
                               let workoutExercisesCopy = [...workoutExercises];
                               workoutExercisesCopy.push(parseInt(e.id));
                               setWorkoutExercises(workoutExercisesCopy)
-                            }}><Plus /></button>
+                            }}/>
                           </div>
                         </div>
                       </Accordion.Body>

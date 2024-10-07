@@ -41,13 +41,16 @@ export const Workouts = ({ currentUser }) => {
               })}
               <Accordion.Body>
                 <div className="editAndDelete">
-                  <button className="exerciseButton">Start</button>
+                  <button className="exerciseButton" onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`inprogress/${workout.id}`)
+                    }}>Start</button>
                   <div>
-                    <PencilSquare onClick={(event) => {
+                    <PencilSquare size={25} onClick={(event) => {
                       event.stopPropagation();
                       navigate(`edit/${workout.id}`)
                     }}/>
-                    <Trash onClick={(event) => {
+                    <Trash size={25}onClick={(event) => {
                       event.stopPropagation();
                       navigate(`delete/${workout.id}`)
                     }}/>

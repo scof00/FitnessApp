@@ -23,3 +23,13 @@ export const GetWorkoutById = (workoutId) => {
 export const DeleteWorkout = (workoutId) => {
     return fetch(`https://localhost:5001/api/Workout/${workoutId}`, {method: "DELETE"})
 }
+
+export const updateWorkout = (w) => {
+    return fetch(`https://localhost:5001/api/Workout/${w.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify(w)
+    })
+}
