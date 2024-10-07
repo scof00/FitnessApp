@@ -8,6 +8,8 @@ export const WorkoutInProgress = () => {
   const { workoutId } = useParams();
   const [workout, setWorkout] = useState({});
   const [workoutExercises, setWorkoutExercises] = useState([]);
+  const [exerciseProgress, setExerciseProgress] = useState([])
+
 
   useEffect(() => {
     GetWorkoutById(workoutId).then((data) => setWorkout(data));
@@ -16,6 +18,16 @@ export const WorkoutInProgress = () => {
   useEffect(() => {
     getExerciseByWorkoutId(workoutId).then((data) => setWorkoutExercises(data));
   }, []);
+
+  useEffect(() => {
+      const progressCopy = []
+      workoutExercises.map((we) => {
+        const exerciseObj = {exerciseId: we.exerciseId}
+        progressCopy.push(exerciseObj)
+        setExerciseProgress(progressCopy)
+      })
+
+  }, [workoutExercises])
 
   return (
     <div className="workoutInProgress">
@@ -30,11 +42,29 @@ export const WorkoutInProgress = () => {
                 className="progressInput"
                 type="number"
                 placeholder="Sets"
+                onChange={(event) => {
+                    const ExerciseProgressCopy = [...exerciseProgress];
+                    ExerciseProgressCopy.map((e) => {
+                        if(e.exerciseId === we.exerciseId){
+                            e.sets = parseInt(event.target.value);
+                            setExerciseProgress(ExerciseProgressCopy);
+                        }
+                    })
+                }}
               ></Input>
               <Input
                 className="progressInput"
                 type="number"
                 placeholder="Reps"
+                onChange={(event) => {
+                    const ExerciseProgressCopy = [...exerciseProgress];
+                    ExerciseProgressCopy.map((e) => {
+                        if(e.exerciseId === we.exerciseId){
+                            e.reps = parseInt(event.target.value);
+                            setExerciseProgress(ExerciseProgressCopy);
+                        }
+                    })
+                }}
               ></Input>
             </div>
             <div className="progressInfo">
@@ -42,13 +72,43 @@ export const WorkoutInProgress = () => {
                 className="progressInput"
                 type="number"
                 placeholder="Weight"
+                onChange={(event) => {
+                    const ExerciseProgressCopy = [...exerciseProgress];
+                    ExerciseProgressCopy.map((e) => {
+                        if(e.exerciseId === we.exerciseId){
+                            e.weight = parseInt(event.target.value);
+                            setExerciseProgress(ExerciseProgressCopy);
+                        }
+                    })
+                }}
               ></Input>
-              <Input type="select" className="progressInput">
+              <Input type="select" className="progressInput" 
+              onChange={(event) => {
+                const ExerciseProgressCopy = [...exerciseProgress];
+                ExerciseProgressCopy.map((e) => {
+                    if(e.exerciseId === we.exerciseId){
+                        e.weightType = event.target.value;
+                        setExerciseProgress(ExerciseProgressCopy);
+                    }
+                })
+            }}
+              >
+                <option>Weight</option>
                 <option value="lbs">lbs</option>
                 <option value="kgs">kgs</option>
               </Input>
             </div>
-            <Input className="notesInput" placeholder="Notes"></Input>
+            <Input className="notesInput" placeholder="Notes"
+            onChange={(event) => {
+                const ExerciseProgressCopy = [...exerciseProgress];
+                ExerciseProgressCopy.map((e) => {
+                    if(e.exerciseId === we.exerciseId){
+                        e.notes = event.target.value;
+                        setExerciseProgress(ExerciseProgressCopy);
+                    }
+                })
+            }}
+            ></Input>
           </div>
         );
       })}
