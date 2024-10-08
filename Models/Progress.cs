@@ -8,7 +8,7 @@
         public int Reps { get; set; }
         public int Sets { get; set; }
         public int Weight { get; set; }
-        public string dateCompleted { get; set; }
+        public DateTime dateCompleted { get; set; }
         public string? Notes { get; set; }
         public string WeightType { get; set; }
         public User? user { get; set; }

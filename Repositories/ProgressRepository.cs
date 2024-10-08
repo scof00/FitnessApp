@@ -30,7 +30,7 @@ namespace FitnessApp.Repositories
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -76,7 +76,7 @@ namespace FitnessApp.Repositories
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -123,7 +123,7 @@ namespace FitnessApp.Repositories
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -173,7 +173,7 @@ namespace FitnessApp.Repositories
                                 Reps = DbUtils.GetInt(reader, "reps"),
                                 Sets = DbUtils.GetInt(reader, "sets"),
                                 Weight = DbUtils.GetInt(reader, "weight"),
-                                dateCompleted = DbUtils.GetString(reader, "completionDate"),
+                                dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
                                 Notes = DbUtils.GetString(reader, "notes"),
                                 WeightType = DbUtils.GetString(reader, "weightType"),
                                 user = new User()

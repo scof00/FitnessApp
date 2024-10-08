@@ -40,7 +40,6 @@ export const WorkoutInProgress = ({currentUser}) => {
         weight: ep.weight,
         notes: ep?.notes,
         weightType: ep.weightType,
-        dateCompleted: new Date().toLocaleDateString()
       }
       CreateProgress(newProgress)
     })}
