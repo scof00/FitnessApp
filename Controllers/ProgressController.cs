@@ -53,7 +53,6 @@ namespace FitnessApp.Controllers
         [HttpPost]
         public IActionResult Post(Progress progress)
         {
-            progress.dateCompleted = DateTime.Now;
             _progressRepository.Add(progress);
             return CreatedAtAction("Get", new { id = progress.Id }, progress);
         }
@@ -75,6 +74,13 @@ namespace FitnessApp.Controllers
         public IActionResult Delete(int id)
         {
              _progressRepository.Delete(id);
+            return NoContent();
+        }
+
+        [HttpDelete("exerciseId={id}")]
+        public IActionResult DeleteByExerciseId(int id)
+        {
+            _progressRepository.DeleteByExercise(id);
             return NoContent();
         }
     }

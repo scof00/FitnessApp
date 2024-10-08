@@ -75,6 +75,12 @@ namespace FitnessApp.Controllers
             _workoutExerciseRepository.DeleteByWorkoutId(id);
             return NoContent();
         }
+        [HttpDelete("exerciseId={id}")]
+        public IActionResult DeleteByExerciseId(int id)
+        {
+            _workoutExerciseRepository.DeleteByExerciseId(id);
+            return NoContent();
+        }
 
     }
 }

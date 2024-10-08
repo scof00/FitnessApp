@@ -6,6 +6,7 @@ namespace FitnessApp.Repositories
     {
         void Add(Progress progress);
         void Delete(int id);
+        void DeleteByExercise(int id);
         List<Progress> GetAllByExerciseId(int id);
         Progress GetById(int id);
         List<Progress> GetAllByUserId(int id);

@@ -14,7 +14,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, p.workoutId as WorkoutId, reps, sets, weight, completionDate, notes, weightType, Workouts.name as WorkoutName, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id LEFT JOIN Workouts on workoutId = Workouts.id WHERE p.userId = @id";
+                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, reps, sets, weight, completionDate, notes, weightType, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id WHERE p.userId = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
@@ -26,11 +26,11 @@ namespace FitnessApp.Repositories
                             Id = DbUtils.GetInt(reader, "ProgressId"),
                             UserId = id,
                             ExerciseId = DbUtils.GetInt(reader, "ExerciseId"),
-                            WorkoutId = DbUtils.GetInt(reader, "WorkoutId"),
+                            
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -44,12 +44,6 @@ namespace FitnessApp.Repositories
                                 MuscleId = DbUtils.GetInt(reader, "MuscleId"),
                                 UserId = id
                             },
-                            workout = new Workouts()
-                            {
-                                Id = DbUtils.GetInt(reader, "WorkoutId"),
-                                Name = DbUtils.GetString(reader, "WorkoutName"),
-                                userId = id
-                            }
 
                         });
 
@@ -67,7 +61,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, p.workoutId as WorkoutId, reps, sets, weight, completionDate, notes, weightType, Workouts.name as WorkoutName, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id LEFT JOIN Workouts on workoutId = Workouts.id WHERE exerciseId = @id";
+                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, reps, sets, weight, completionDate, notes, weightType, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id WHERE exerciseId = @id ORDER BY completionDate DESC";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
@@ -79,11 +73,10 @@ namespace FitnessApp.Repositories
                             Id = DbUtils.GetInt(reader, "ProgressId"),
                             UserId = DbUtils.GetInt(reader, "UserId"),
                             ExerciseId = DbUtils.GetInt(reader, "ExerciseId"),
-                            WorkoutId = DbUtils.GetInt(reader, "WorkoutId"),
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -97,12 +90,6 @@ namespace FitnessApp.Repositories
                                 MuscleId = DbUtils.GetInt(reader, "MuscleId"),
                                 UserId = DbUtils.GetInt(reader, "UserId"),
                             },
-                            workout = new Workouts()
-                            {
-                                Id = DbUtils.GetInt(reader, "WorkoutId"),
-                                Name = DbUtils.GetString(reader, "WorkoutName"),
-                                userId = DbUtils.GetInt(reader, "UserId"),
-                            }
 
                         });
 
@@ -120,7 +107,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, p.workoutId as WorkoutId, reps, sets, weight, completionDate, notes, weightType, Workouts.name as WorkoutName, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id LEFT JOIN Workouts on workoutId = Workouts.id";
+                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, reps, sets, weight, completionDate, notes, weightType,Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id";
                     
 
                     var reader = cmd.ExecuteReader();
@@ -132,11 +119,11 @@ namespace FitnessApp.Repositories
                             Id = DbUtils.GetInt(reader, "ProgressId"),
                             UserId = DbUtils.GetInt(reader, "UserId"),
                             ExerciseId = DbUtils.GetInt(reader, "ExerciseId"),
-                            WorkoutId = DbUtils.GetInt(reader, "WorkoutId"),
+                            
                             Reps = DbUtils.GetInt(reader, "reps"),
                             Sets = DbUtils.GetInt(reader, "sets"),
                             Weight = DbUtils.GetInt(reader, "weight"),
-                            dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
+                            dateCompleted = DbUtils.GetString(reader, "completionDate"),
                             Notes = DbUtils.GetString(reader, "notes"),
                             WeightType = DbUtils.GetString(reader, "weightType"),
                             user = new User()
@@ -150,12 +137,7 @@ namespace FitnessApp.Repositories
                                 MuscleId = DbUtils.GetInt(reader, "MuscleId"),
                                 UserId = DbUtils.GetInt(reader, "UserId")
                             },
-                            workout = new Workouts()
-                            {
-                                Id = DbUtils.GetInt(reader, "WorkoutId"),
-                                Name = DbUtils.GetString(reader, "WorkoutName"),
-                                userId = DbUtils.GetInt(reader, "UserId")
-                            }
+                            
 
                         });
 
@@ -173,7 +155,7 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, p.workoutId as WorkoutId, reps, sets, weight, completionDate, notes, weightType, Workouts.name as WorkoutName, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id LEFT JOIN Workouts on workoutId = Workouts.id WHERE p.Id = @id";
+                    cmd.CommandText = @"SELECT p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, reps, sets, weight, completionDate, notes, weightType, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id WHERE p.Id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
@@ -188,11 +170,10 @@ namespace FitnessApp.Repositories
                                 Id = DbUtils.GetInt(reader, "ProgressId"),
                                 UserId = DbUtils.GetInt(reader, "UserId"),
                                 ExerciseId = DbUtils.GetInt(reader, "ExerciseId"),
-                                WorkoutId = DbUtils.GetInt(reader, "WorkoutId"),
                                 Reps = DbUtils.GetInt(reader, "reps"),
                                 Sets = DbUtils.GetInt(reader, "sets"),
                                 Weight = DbUtils.GetInt(reader, "weight"),
-                                dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
+                                dateCompleted = DbUtils.GetString(reader, "completionDate"),
                                 Notes = DbUtils.GetString(reader, "notes"),
                                 WeightType = DbUtils.GetString(reader, "weightType"),
                                 user = new User()
@@ -206,12 +187,6 @@ namespace FitnessApp.Repositories
                                     MuscleId = DbUtils.GetInt(reader, "MuscleId"),
                                     UserId = DbUtils.GetInt(reader, "UserId"),
                                 },
-                                workout = new Workouts()
-                                {
-                                    Id = DbUtils.GetInt(reader, "WorkoutId"),
-                                    Name = DbUtils.GetString(reader, "WorkoutName"),
-                                    userId = DbUtils.GetInt(reader, "UserId"),
-                                }
                             };
                         }
 
@@ -229,11 +204,10 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Progress (userId, exerciseId, workoutId, reps, sets, weight, completionDate, notes, weightType) OUTPUT INSERTED.ID VALUES (@userId, @exerciseId, @workoutId, @reps, @sets, @weight, @completionDate, @notes, @weightType)";
+                    cmd.CommandText = @"INSERT INTO Progress (userId, exerciseId, reps, sets, weight, completionDate, notes, weightType) OUTPUT INSERTED.ID VALUES (@userId, @exerciseId, @reps, @sets, @weight, @completionDate, @notes, @weightType)";
 
                     DbUtils.AddParameter(cmd, "@userId", progress.UserId);
                     DbUtils.AddParameter(cmd, "@exerciseId", progress.ExerciseId);
-                    DbUtils.AddParameter(cmd, "@workoutId", progress.WorkoutId);
                     DbUtils.AddParameter(cmd, "@reps", progress.Reps);
                     DbUtils.AddParameter(cmd, "@sets", progress.Sets);
                     DbUtils.AddParameter(cmd, "@weight", progress.Weight);
@@ -254,10 +228,10 @@ namespace FitnessApp.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Progress SET exerciseId = @exerciseId, workoutId = @workoutId, reps = @reps, sets = @sets, weight = @weight, completionDate = @completionDate, notes = @notes, weightType = @weightType WHERE Id = @id";
+                    cmd.CommandText = @"UPDATE Progress SET exerciseId = @exerciseId, reps = @reps, sets = @sets, weight = @weight, completionDate = @completionDate, notes = @notes, weightType = @weightType WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@exerciseId", progress.ExerciseId);
-                    DbUtils.AddParameter(cmd, "@workoutId", progress.WorkoutId);
+                   
                     DbUtils.AddParameter(cmd, "@reps", progress.Reps);
                     DbUtils.AddParameter(cmd, "@sets", progress.Sets);
                     DbUtils.AddParameter(cmd, "@weight", progress.Weight);
@@ -280,6 +254,21 @@ namespace FitnessApp.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = "DELETE FROM Progress WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteByExercise(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Progress WHERE exerciseId = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     cmd.ExecuteNonQuery();

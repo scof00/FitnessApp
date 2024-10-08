@@ -41,10 +41,12 @@ export const Navbar = () => {
             </div>
           </button>
         </Link>
+        <Link to="progress">
         <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={LogLogo}></img>
           Log
         </button>
+        </Link>
         {/* <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={SleepTrackerLogo}></img>
           Sleep

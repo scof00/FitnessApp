@@ -34,13 +34,13 @@ export const WorkoutInProgress = ({currentUser}) => {
     {exerciseProgress.map((ep) => {
       const newProgress = {
         userId: currentUser.id,
-        workoutId: workoutId,
         exerciseId: ep.exerciseId,
         reps: ep.reps,
         sets: ep.sets,
         weight: ep.weight,
         notes: ep?.notes,
-        weightType: ep.weightType
+        weightType: ep.weightType,
+        dateCompleted: new Date().toLocaleDateString()
       }
       CreateProgress(newProgress)
     })}

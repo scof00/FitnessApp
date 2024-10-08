@@ -4,6 +4,8 @@ import {
   GetExerciseById,
 } from "../../Managers/ExerciseManager";
 import { useNavigate, useParams } from "react-router-dom";
+import { DeleteByExerciseId } from "../../Managers/ProgressManager";
+import { DeleteWorkoutExerciseByExerciseId } from "../../Managers/WorkoutExerciseManager";
 
 export const ExerciseDelete = () => {
   const [exercise, setExercise] = useState({});
@@ -15,7 +17,7 @@ export const ExerciseDelete = () => {
   }, []);
 
   const handleDelete = () => {
-    deleteExercise(exerciseId).then(navigate("/exercises"));
+    DeleteByExerciseId(exerciseId).then(DeleteWorkoutExerciseByExerciseId(exerciseId)).then(deleteExercise(exerciseId)).then(navigate("/exercises"));
   };
   return (
     <>

@@ -23,3 +23,7 @@ export const DeleteByWorkoutId = (id) => {
 export const DeleteWorkoutExercise = (id) => {
     return fetch(`https://localhost:5001/api/WorkoutExercise/${id}`, {method: "DELETE"})
 }
+
+export const DeleteWorkoutExerciseByExerciseId = (id) => {
+    return fetch(`https://localhost:5001/api/WorkoutExercise/exerciseId=${id}`, {method: "DELETE"})
+}

@@ -1,7 +1,7 @@
 .navbar{
     display: flex;
     flex-direction: column;
-    background-color: #61D5EE;
+    background-color:#61D5EE ;
     width: 15vw;
     height: 100vh;
     position: fixed;

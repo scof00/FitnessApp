@@ -162,5 +162,20 @@ namespace FitnessApp.Repositories
                 }
             }
         }
+
+        public void DeleteByExerciseId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM WorkoutExercises WHERE exerciseId = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
