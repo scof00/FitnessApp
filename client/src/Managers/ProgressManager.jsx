@@ -16,6 +16,10 @@ export const GetProgressByExerciseId = (id) => {
     return fetch(`https://localhost:5001/api/Progress/exerciseId=${id}`).then((res) => res.json());
 }
 
+export const GetProgressByExerciseIdAsc = (id) => {
+    return fetch(`https://localhost:5001/api/Progress/exerciseId=${id}/Asc`).then((res) => res.json());
+}
+
 export const DeleteByExerciseId = (id) => {
     return fetch(`https://localhost:5001/api/Progress/exerciseid=${id}`, {method:"DELETE"})
 }

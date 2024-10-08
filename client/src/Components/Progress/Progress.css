@@ -13,3 +13,10 @@
 .progressChild{
     display: flex;
 }
+
+.topButtons{
+    width: 60vw;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vw;
+}

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { GetProgressByExerciseId } from "../../Managers/ProgressManager";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  GetProgressByExerciseId,
+  GetProgressByExerciseIdAsc,
+} from "../../Managers/ProgressManager";
 import { GetExerciseById } from "../../Managers/ExerciseManager";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
@@ -13,22 +16,33 @@ import {
 export const ProgressDetails = () => {
   const { exerciseId } = useParams();
   const [progress, setProgress] = useState([]);
+  const [ascendingProgress, setAscendingProgress] = useState([]);
   const [exercise, setExercise] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     GetProgressByExerciseId(exerciseId).then((data) => setProgress(data));
+  }, []);
+  useEffect(() => {
+    GetProgressByExerciseIdAsc(exerciseId).then((data) =>
+      setAscendingProgress(data)
+    );
   }, []);
   useEffect(() => {
     GetExerciseById(exerciseId).then((data) => setExercise(data));
   }, []);
   const dateLabels = [];
   const weightData = [];
-  progress.map((p) => {
-    dateLabels.push(p.dateCompleted);
+  const weightTypeGraph =[];
+
+  ascendingProgress.map((p) => {
+    dateLabels.push(p.dateCompleted.split('T')[0]);
     weightData.push(p.weight);
+    weightTypeGraph.push(p.weightType);
   });
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    labels: dateLabels,
     datasets: [
       {
         label: `${exercise.name}`,
@@ -39,20 +53,44 @@ export const ProgressDetails = () => {
       },
     ],
   };
+
+
+  const options = {
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Date",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: `Weight (${weightTypeGraph[0]})`,
+        },
+      },
+    },
+  };
   return (
     <div className="progressList">
-      <div>
-        <ArrowLeftSquare />
-        <PlusSquare />
+      <div className="topButtons">
+        <ArrowLeftSquare
+          size={30}
+          onClick={(event) => {
+            navigate("/progress");
+          }}
+        />
+        <PlusSquare size={30} />
       </div>
       <h2>{exercise.name}</h2>
-      <Line data={data} />
+      <Line data={data} options={options} width={"60vw"} height={"60vw"} />
       {progress.map((p) => {
+        const finalDate = p.dateCompleted.split('T')[0]
         return (
           <div className="progressDisplay">
             <div>
               <p>
-                <b>Date:</b> {p.dateCompleted}
+                <b>Date:</b> {finalDate}
               </p>
             </div>
             <div className="progressChild">

@@ -37,6 +37,12 @@ namespace FitnessApp.Controllers
             return Ok(_progressRepository.GetAllByExerciseId(id));
         }
 
+        [HttpGet("exerciseId={id}/Asc")]
+        public IActionResult GetAllByExerciseIdAsc(int id)
+        {
+            return Ok(_progressRepository.GetAllByExerciseIdAsc(id));
+        }
+
         // GET api/<ProgressController>/5
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
