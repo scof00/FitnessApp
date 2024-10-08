@@ -9,7 +9,7 @@ export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
   const [exercises, setExercises] = useState([]);
   const user = currentUser;
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMuscles().then((data) => setMuscles(data));
@@ -36,10 +36,10 @@ export const Exercises = ({ currentUser }) => {
                           {e.name}
                           <div>
                             <Link to={`edit/${e.id}`}>
-                              <PencilSquare size={25}/>
+                              <PencilSquare size={25} />
                             </Link>
                             <Link to={`delete/${e.id}`}>
-                              <Trash size={25}/>
+                              <Trash size={25} />
                             </Link>
                           </div>
                         </div>
