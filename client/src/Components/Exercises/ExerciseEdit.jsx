@@ -3,6 +3,7 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Input } from "reactstrap";
 import { useEffect, useState } from "react";
 import { GetExerciseById, updateExercise } from "../../Managers/ExerciseManager";
+import { ArrowLeftSquare } from "react-bootstrap-icons";
 
 export const ExerciseEdit = () => {
     const [exercise, setExercise] = useState({});
@@ -40,7 +41,15 @@ export const ExerciseEdit = () => {
   
     return (
       <form className="exerciseCreateForm">
-        <h2>Add a new exercise</h2>
+        <div className="backButton">
+        <ArrowLeftSquare
+          size={30}
+          onClick={(event) => {
+            navigate(`/exercises`);
+          }}
+        />
+      </div>
+        <h2>Edit <b>{exercise.name}</b></h2>
         <fieldset>
           <Input
           className="exerciseFormInput"

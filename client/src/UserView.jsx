@@ -12,6 +12,7 @@ import { WorkoutEdit } from "./Components/Workouts/WorkoutEdit";
 import { WorkoutInProgress } from "./Components/Workouts/WorkoutInProgress";
 import { ProgressList } from "./Components/Progress/Progress";
 import { ProgressDetails } from "./Components/Progress/ProgressDetails";
+import { ProgressCreate } from "./Components/Progress/ProgressCreate";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -52,6 +53,7 @@ export const UserView = ({ currentUser }) => {
         <Route path="workouts/inprogress/:workoutId" element={<WorkoutInProgress currentUser={currentUser}/> } />
         <Route path="progress" element={<ProgressList currentUser={currentUser} />} />
         <Route path="progress/details/:exerciseId" element={<ProgressDetails currentUser={currentUser} />} />
+        <Route path="progress/create/:exerciseId" element={<ProgressCreate currentUser={currentUser} />} />
       </Route>
     </Routes>
   );

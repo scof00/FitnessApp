@@ -12,6 +12,7 @@ import {
   ArrowLeftSquare,
   PlusSquare,
 } from "react-bootstrap-icons";
+import { Accordion } from "react-bootstrap";
 
 export const ProgressDetails = () => {
   const { exerciseId } = useParams();
@@ -33,10 +34,10 @@ export const ProgressDetails = () => {
   }, []);
   const dateLabels = [];
   const weightData = [];
-  const weightTypeGraph =[];
+  const weightTypeGraph = [];
 
   ascendingProgress.map((p) => {
-    dateLabels.push(p.dateCompleted.split('T')[0]);
+    dateLabels.push(p.dateCompleted.split("T")[0]);
     weightData.push(p.weight);
     weightTypeGraph.push(p.weightType);
   });
@@ -53,7 +54,6 @@ export const ProgressDetails = () => {
       },
     ],
   };
-
 
   const options = {
     scales: {
@@ -80,35 +80,44 @@ export const ProgressDetails = () => {
             navigate("/progress");
           }}
         />
-        <PlusSquare size={30} />
+        <PlusSquare
+          size={30}
+          onClick={(event) => {
+            navigate(`/progress/create/${exercise.id}`);
+          }}
+        />
       </div>
       <h2>{exercise.name}</h2>
       <Line data={data} options={options} width={"60vw"} height={"60vw"} />
-      {progress.map((p) => {
-        const finalDate = p.dateCompleted.split('T')[0]
-        return (
-          <div className="progressDisplay">
-            <div>
-              <p>
-                <b>Date:</b> {finalDate}
-              </p>
-            </div>
-            <div className="progressChild">
-              <p>
-                <b>Sets:</b> {p.sets} <b>Reps:</b> {p.reps}
-              </p>
-            </div>
-            <div className="progressChild">
-              <p>
-                <b>Weight:</b> {p.weight} {p.weightType}
-              </p>
-            </div>
-            <p>
-              <b>Notes:</b> {p.notes}
-            </p>
-          </div>
-        );
-      })}
+      <Accordion defaultActiveKey="0" className="accordion">
+        {progress.map((p) => {
+          const finalDate = p.dateCompleted.split("T")[0];
+          return (
+            <Accordion.Item eventKey={p.id} className="accordionItem">
+              <Accordion.Header>
+                <p>
+                  <b>Date:</b> {finalDate}
+                </p>
+              </Accordion.Header>
+              <Accordion.Body>
+                <div className="progressChild">
+                  <p>
+                    <b>Sets:</b> {p.sets} <b>Reps:</b> {p.reps}
+                  </p>
+                </div>
+                <div className="progressChild">
+                  <p>
+                    <b>Weight:</b> {p.weight} {p.weightType}
+                  </p>
+                </div>
+                <p>
+                  <b>Notes:</b> {p.notes}
+                </p>
+              </Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
+      </Accordion>
     </div>
   );
 };

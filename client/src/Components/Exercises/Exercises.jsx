@@ -35,12 +35,15 @@ export const Exercises = ({ currentUser }) => {
                         <div className="editAndDelete">
                           {e.name}
                           <div>
-                            <Link to={`edit/${e.id}`}>
-                              <PencilSquare size={25} />
-                            </Link>
-                            <Link to={`delete/${e.id}`}>
-                              <Trash size={25} />
-                            </Link>
+                            <PencilSquare
+                              size={25}
+                              onClick={(event) => navigate(`edit/${e.id}`)}
+                            />
+
+                            <Trash
+                              size={25}
+                              onClick={(event) => navigate(`delete/${e.id}`)}
+                            />
                           </div>
                         </div>
                       </Accordion.Body>

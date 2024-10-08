@@ -4,6 +4,7 @@ import { GetWorkoutById } from "../../Managers/WorkoutManager";
 import { getExerciseByWorkoutId } from "../../Managers/WorkoutExerciseManager";
 import { Input } from "reactstrap";
 import { CreateProgress } from "../../Managers/ProgressManager";
+import { ArrowLeftSquare } from "react-bootstrap-icons";
 
 export const WorkoutInProgress = ({currentUser}) => {
   const { workoutId } = useParams();
@@ -40,14 +41,30 @@ export const WorkoutInProgress = ({currentUser}) => {
         weight: ep.weight,
         notes: ep?.notes,
         weightType: ep.weightType,
+        dateCompleted: new Date()
       }
       CreateProgress(newProgress)
     })}
     (navigate("/"))
   }
 
+  const alert = (event) => {
+    event.preventDefault()
+    if(confirm("WARNING: Leaving the page will cause you to lose your progress!")) {
+      navigate("/workouts")
+    } else {
+
+    }
+  }
+
   return (
     <div className="workoutInProgress">
+      <div className="backButton">
+        <ArrowLeftSquare
+          size={30}
+          onClick={alert}
+        />
+      </div>
       <h2><u>{workout.name}</u></h2>
       {workoutExercises.map((we) => {
         return (

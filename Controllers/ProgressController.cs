@@ -59,7 +59,8 @@ namespace FitnessApp.Controllers
         [HttpPost]
         public IActionResult Post(Progress progress)
         {
-            progress.dateCompleted = DateTime.Now;
+            
+            
             _progressRepository.Add(progress);
             return CreatedAtAction("Get", new { id = progress.Id }, progress);
         }

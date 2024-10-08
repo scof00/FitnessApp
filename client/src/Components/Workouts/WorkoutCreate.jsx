@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Accordion, Input } from "reactstrap";
 import { Exercises } from "../Exercises/Exercises";
 import { ExercisesForUse } from "../Exercises/ExercisesForWorkoutCreate";
-import { PlusCircle, XSquare } from "react-bootstrap-icons";
+import { ArrowLeftSquare, PlusCircle, XSquare } from "react-bootstrap-icons";
 import { getMuscles } from "../../Managers/MuscleManager";
 import { CreateWorkout } from "../../Managers/WorkoutManager";
 import { CreateWorkoutExercise } from "../../Managers/WorkoutExerciseManager";
@@ -61,6 +61,14 @@ export const WorkoutCreate = ({ currentUser }) => {
 
   return (
     <div className="workoutCreateForm">
+      <div className="backButton">
+        <ArrowLeftSquare
+          size={30}
+          onClick={(event) => {
+            navigate(`/workouts`);
+          }}
+        />
+      </div>
       <h2>Create a new workout</h2>
       <Input
         placeholder="Workout Name"
