@@ -10,7 +10,9 @@ import Chart from "chart.js/auto";
 import {
   ArrowLeftShort,
   ArrowLeftSquare,
+  PencilSquare,
   PlusSquare,
+  Trash,
 } from "react-bootstrap-icons";
 import { Accordion } from "react-bootstrap";
 
@@ -77,7 +79,7 @@ export const ProgressDetails = () => {
         <ArrowLeftSquare
           size={30}
           onClick={(event) => {
-            navigate("/progress");
+            navigate("/exercises");
           }}
         />
         <PlusSquare
@@ -113,6 +115,14 @@ export const ProgressDetails = () => {
                 <p>
                   <b>Notes:</b> {p.notes}
                 </p>
+                <PencilSquare
+                  size={20}
+                  onClick={(event) => navigate(`/progress/edit/${p.id}`)}
+                />
+                <Trash
+                  size={20}
+                  onClick={(event) => navigate(`/progress/delete/${p.id}`)}
+                />
               </Accordion.Body>
             </Accordion.Item>
           );

@@ -23,3 +23,21 @@ export const GetProgressByExerciseIdAsc = (id) => {
 export const DeleteByExerciseId = (id) => {
     return fetch(`https://localhost:5001/api/Progress/exerciseid=${id}`, {method:"DELETE"})
 }
+
+export const GetProgressById = (id) => {
+    return fetch(`https://localhost:5001/api/Progress/${id}`).then((res) => res.json());
+}
+
+export const DeleteProgress = (id) => {
+    return fetch(`https://localhost:5001/api/Progress/${id}`, {method:"DELETE"})
+}
+
+export const updateProgress = (p) => {
+    return fetch(`https://localhost:5001/api/Progress/${p.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify(p)
+    })
+}

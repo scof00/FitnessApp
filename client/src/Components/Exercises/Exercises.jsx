@@ -3,7 +3,7 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { Link, useNavigate } from "react-router-dom";
-import { Pen, PencilSquare, Trash } from "react-bootstrap-icons";
+import { Eye, Pen, PencilSquare, Trash } from "react-bootstrap-icons";
 
 export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
@@ -34,14 +34,19 @@ export const Exercises = ({ currentUser }) => {
                       <Accordion.Body>
                         <div className="editAndDelete">
                           {e.name}
-                          <div>
+                          <div className="buttons">
+                            <Eye
+                              size={20}
+                              onClick={(event) => {
+                                navigate(`/progress/details/${e.id}`);
+                              }}
+                            />
                             <PencilSquare
-                              size={25}
+                              size={20}
                               onClick={(event) => navigate(`edit/${e.id}`)}
                             />
-
                             <Trash
-                              size={25}
+                              size={20}
                               onClick={(event) => navigate(`delete/${e.id}`)}
                             />
                           </div>
