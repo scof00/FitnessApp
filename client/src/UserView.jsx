@@ -15,6 +15,7 @@ import { ProgressDetails } from "./Components/Progress/ProgressDetails";
 import { ProgressCreate } from "./Components/Progress/ProgressCreate";
 import { ProgressEdit } from "./Components/Progress/ProgressEdit";
 import { ProgressDelete } from "./Components/Progress/ProgressDelete";
+import { Jym } from "./Components/Jym/Jym";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -58,6 +59,7 @@ export const UserView = ({ currentUser }) => {
         <Route path="progress/create/:exerciseId" element={<ProgressCreate currentUser={currentUser} />} />
         <Route path="progress/edit/:progressId" element={<ProgressEdit currentUser={currentUser} />} />
         <Route path="progress/delete/:progressId" element={<ProgressDelete currentUser={currentUser} />} />
+        <Route path="jym" element={<Jym currentUser={currentUser} />} />
       </Route>
     </Routes>
   );

@@ -10,9 +10,11 @@
 }
 
 #root{
-    margin-right: 5vw;
+    margin-right: 0vw;
     height: 100vh;
-    margin-top: 10vh;
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 0;
 }
 .navButton{
     height: 50px;
@@ -55,4 +57,10 @@
     height: 20px;
     margin: 0;
     padding: 0;
+}
+
+.coreComponent{
+    width: 60vw;
+    margin-top: 5vh;
+    margin-right: 12vw;
 }

@@ -27,7 +27,7 @@ export const Workouts = ({ currentUser }) => {
   }, []);
 
   return (
-    <div>
+    <div className="coreComponent">
       <h2>Your Workouts</h2>
       <Accordion defaultActiveKey="0" className="accordion">
         {workouts.map((workout) => {

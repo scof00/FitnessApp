@@ -75,7 +75,7 @@ export const ProgressDetails = () => {
     },
   };
   return (
-    <div className="progressList">
+    <div className="progressList, coreComponent">
       <div className="topButtons">
         <ArrowLeft
           size={30}

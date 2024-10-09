@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Input } from "reactstrap";
 import { GetExerciseById } from "../../Managers/ExerciseManager";
 import { CreateProgress } from "../../Managers/ProgressManager";
-import { ArrowLeftSquare } from "react-bootstrap-icons";
+import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
 
 export const ProgressCreate = ({ currentUser }) => {
   const { exerciseId } = useParams();
@@ -32,9 +32,9 @@ export const ProgressCreate = ({ currentUser }) => {
     );
   };
   return (
-    <div className="progressList">
+    <div className="progressList, coreComponent">
       <div className="backButton">
-        <ArrowLeftSquare
+        <ArrowLeft
           size={30}
           onClick={(event) => {
             navigate(`/progress/details/${exerciseId}`);

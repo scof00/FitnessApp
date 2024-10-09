@@ -20,7 +20,7 @@ export const Exercises = ({ currentUser }) => {
   }, [user]);
 
   return (
-    <div>
+    <div className="coreComponent">
       <h2>Your Exercises</h2>
       <Accordion defaultActiveKey="0" className="accordion">
         {muscles.map((m) => {

@@ -60,7 +60,7 @@ export const WorkoutCreate = ({ currentUser }) => {
   };
 
   return (
-    <div className="workoutCreateForm">
+    <div className="workoutCreateForm, coreComponent">
       <div className="backButton">
         <ArrowLeft
           size={30}

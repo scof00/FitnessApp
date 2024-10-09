@@ -17,7 +17,7 @@ export const ProgressDelete = () => {
 
     return(
         <>
-      <div className="exerciseDeleteForm">
+      <div className="exerciseDeleteForm, coreComponent">
         Are you sure you want to delete the following information:
         <p>
           <b>Date:</b> {progress.dateCompleted}

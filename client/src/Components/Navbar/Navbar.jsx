@@ -19,12 +19,14 @@ export const Navbar = () => {
             trAIner
           </button>
         </Link>
+        <Link to="jym">
         <button type="button" className="btn btn-primary">
           <div>
             <img className="navbarLogo" src={TrainerLogo}></img>
             Jym
           </div>
         </button>
+        </Link>
         <Link to="workouts">
           <button type="button" className="btn btn-primary">
             <div>

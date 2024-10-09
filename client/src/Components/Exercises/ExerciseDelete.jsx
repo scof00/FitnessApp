@@ -21,7 +21,7 @@ export const ExerciseDelete = () => {
   };
   return (
     <>
-      <div className="exerciseDeleteForm">
+      <div className="exerciseDeleteForm, coreComponent">
         Are you sure you want to delete:
         <p>
           <b>{exercise.name}</b>?

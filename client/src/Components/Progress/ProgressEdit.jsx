@@ -40,7 +40,7 @@ export const ProgressEdit = () => {
   }
 
   return (
-    <div className="progressList">
+    <div className="progressList, coreComponent">
       <div>
         <div className="backButton">
           <ArrowLeft

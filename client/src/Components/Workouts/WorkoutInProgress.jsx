@@ -58,7 +58,7 @@ export const WorkoutInProgress = ({currentUser}) => {
   }
 
   return (
-    <div className="workoutInProgress">
+    <div className="workoutInProgress, coreComponent">
       <div className="backButton">
         <ArrowLeft
           size={30}

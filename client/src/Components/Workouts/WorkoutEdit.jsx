@@ -75,7 +75,7 @@ export const WorkoutEdit = ({ currentUser }) => {
   }
 
   return (
-    <div>
+    <div className="coreComponent">
       <div className="backButton">
         <ArrowLeft
           size={30}
