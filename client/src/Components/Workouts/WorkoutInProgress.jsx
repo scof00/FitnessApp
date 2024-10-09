@@ -4,7 +4,7 @@ import { GetWorkoutById } from "../../Managers/WorkoutManager";
 import { getExerciseByWorkoutId } from "../../Managers/WorkoutExerciseManager";
 import { Input } from "reactstrap";
 import { CreateProgress } from "../../Managers/ProgressManager";
-import { ArrowLeftSquare } from "react-bootstrap-icons";
+import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
 
 export const WorkoutInProgress = ({currentUser}) => {
   const { workoutId } = useParams();
@@ -60,7 +60,7 @@ export const WorkoutInProgress = ({currentUser}) => {
   return (
     <div className="workoutInProgress">
       <div className="backButton">
-        <ArrowLeftSquare
+        <ArrowLeft
           size={30}
           onClick={alert}
         />

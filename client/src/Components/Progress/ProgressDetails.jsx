@@ -8,6 +8,7 @@ import { GetExerciseById } from "../../Managers/ExerciseManager";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import {
+  ArrowLeft,
   ArrowLeftShort,
   ArrowLeftSquare,
   PencilSquare,
@@ -76,7 +77,7 @@ export const ProgressDetails = () => {
   return (
     <div className="progressList">
       <div className="topButtons">
-        <ArrowLeftSquare
+        <ArrowLeft
           size={30}
           onClick={(event) => {
             navigate("/exercises");

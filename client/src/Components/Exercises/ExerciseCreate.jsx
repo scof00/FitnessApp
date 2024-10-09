@@ -4,6 +4,7 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Input } from "reactstrap";
 import { createExercise } from "../../Managers/ExerciseManager";
 import "./Exercise.css"
+import { ArrowLeft } from "react-bootstrap-icons";
 
 export const ExerciseCreate = ({ currentUser }) => {
   const [exercise, setExercise] = useState({});
@@ -33,7 +34,15 @@ export const ExerciseCreate = ({ currentUser }) => {
   };
 
   return (
-    <form className="exerciseCreateForm">
+    <form className="exerciseCreateForm, coreComponent">
+      <div className="backButton">
+        <ArrowLeft
+          size={30}
+          onClick={(event) => {
+            navigate(`/exercises`);
+          }}
+        />
+      </div>
       <h2>Add a new exercise</h2>
       <fieldset>
         <Input
@@ -75,9 +84,6 @@ export const ExerciseCreate = ({ currentUser }) => {
       <fieldset>
         <button onClick={handleSave} className="exerciseButton">Create Exercise</button>
       </fieldset>
-      <Link to="/exercises">
-      <p>Cancel</p>
-      </Link>
     </form>
   );
 };

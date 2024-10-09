@@ -5,7 +5,7 @@ import { CreateWorkoutExercise, DeleteByWorkoutId, getExerciseByWorkoutId } from
 import { ExercisesForUse } from "../Exercises/ExercisesForWorkoutCreate";
 import { Input } from "reactstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
-import { ArrowLeftSquare, XSquare } from "react-bootstrap-icons";
+import { ArrowLeft, ArrowLeftSquare, XSquare } from "react-bootstrap-icons";
 
 export const WorkoutEdit = ({ currentUser }) => {
   const [workout, setWorkout] = useState({});
@@ -77,7 +77,7 @@ export const WorkoutEdit = ({ currentUser }) => {
   return (
     <div>
       <div className="backButton">
-        <ArrowLeftSquare
+        <ArrowLeft
           size={30}
           onClick={(event) => {
             navigate(`/workouts`);
