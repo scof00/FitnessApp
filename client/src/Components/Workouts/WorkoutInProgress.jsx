@@ -92,38 +92,39 @@ export const WorkoutInProgress = ({ currentUser }) => {
       let step2 = 36/step1;
       let step3 = Math.round(lp.weight * step2);
       repMax = step3;
+      if(type === 1) {
+        const finalWeight = repMax * 0.9;
+        const recommendation = {
+          weight: finalWeight,
+          reps: 4,
+          sets: 5,
+          exerciseId: lp.exerciseId
+        }
+        recommendations.push(recommendation)
+        console.log(recommendations)
+        toggle()
+      } else if (type === 2) {
+        const finalWeight = repMax * 0.75;
+        const recommendation = {
+          weight: finalWeight,
+          reps: 10,
+          sets: 4
+        }
+        recommendations.push(recommendation)
+        console.log(recommendations)
+        toggle()
+      } else if (type === 3) {
+        const finalWeight = repMax * 0.5;
+        const recommendation = {
+          weight: finalWeight,
+          reps: 15,
+          sets: 2
+        }
+        recommendations.push(recommendation)
+        console.log(recommendations)
+        toggle()
+      }
     })
-    if(type === 1) {
-      const finalWeight = repMax * 0.9;
-      const recommendation = {
-        weight: finalWeight,
-        reps: 4,
-        sets: 5
-      }
-      recommendations.push(recommendation)
-      console.log(recommendations)
-      toggle()
-    } else if (type === 2) {
-      const finalWeight = repMax * 0.75;
-      const recommendation = {
-        weight: finalWeight,
-        reps: 10,
-        sets: 4
-      }
-      recommendations.push(recommendation)
-      console.log(recommendations)
-      toggle()
-    } else if (type === 3) {
-      const finalWeight = repMax * 0.5;
-      const recommendation = {
-        weight: finalWeight,
-        reps: 15,
-        sets: 2
-      }
-      recommendations.push(recommendation)
-      console.log(recommendations)
-      toggle()
-    }
 
   }
 
