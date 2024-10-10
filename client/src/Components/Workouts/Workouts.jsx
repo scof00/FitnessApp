@@ -12,7 +12,7 @@ import { ArrowLeft, PencilSquare, Trash, X } from "react-bootstrap-icons";
 export const Workouts = ({ currentUser }) => {
   const [workouts, setWorkouts] = useState([]);
   const [workoutExercises, setWorkoutExercises] = useState([]);
-  const [workoutIdOverlay, setWorkoutIdOverlay] = useState();
+  // const [workoutIdOverlay, setWorkoutIdOverlay] = useState();
 
   const navigate = useNavigate();
 
@@ -27,29 +27,35 @@ export const Workouts = ({ currentUser }) => {
     getWorkoutExercise().then((data) => setWorkoutExercises(data));
   }, []);
 
-  const open = (id) => {
-    setWorkoutIdOverlay(id)
-    document.getElementById("overlay").style.width = "85vw";
-    document.getElementById("overlay").style.height = "100vh";
-  };
+  // code for overlay that I realized I don't need
+  // const open = (id) => {
+  //   setWorkoutIdOverlay(id);
+  //   document.getElementById("overlay").style.width = "85vw";
+  //   document.getElementById("overlay").style.height = "100vh";
+  // };
 
-  const close = () => {
-    document.getElementById("overlay").style.width = "0vw";
-  };
+  // const close = () => {
+  //   document.getElementById("overlay").style.width = "0vw";
+  //   document.getElementById("secondaryOverlay").style.width = "0vw";
+  // };
+
+  // const openSecondary = () => {
+  //   document.getElementById("secondaryOverlay").style.width = "85vw";
+  //   document.getElementById("secondaryOverlay").style.height = "40vh";
+  // };
 
   return (
     <div className="coreComponent">
-      <div className="overlay" id="overlay">
-      <div className="xButton">
-          <X
-            size={30}
-            onClick={close}
-          />
+      {/* <div className="overlay" id="overlay">
+        <div className="xButton">
+          <X size={30} onClick={close} />
         </div>
         <div className="overlay-content">
           Would you like to use recommendations?
           <div>
-            <button className="exerciseButton">Yes</button>
+            <button className="exerciseButton" onClick={openSecondary}>
+              Yes
+            </button>
             <button
               className="exerciseButton"
               onClick={(event) => {
@@ -61,7 +67,10 @@ export const Workouts = ({ currentUser }) => {
             </button>
           </div>
         </div>
-      </div>
+        <div className="overlay" id="secondaryOverlay">
+          <div className="secondary-overlay-content">secondary</div>
+        </div>
+      </div> */}
       <h2>Your Workouts</h2>
       <Accordion
         defaultActiveKey="0"
@@ -79,7 +88,13 @@ export const Workouts = ({ currentUser }) => {
               })}
               <Accordion.Body className="holdsOverlay">
                 <div className="editAndDelete">
-                  <button className="exerciseButton" onClick={(event) => open(workout.id)}>
+                  <button
+                    className="exerciseButton"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      navigate(`inprogress/${workout.id}`);
+                    }}
+                  >
                     Start
                   </button>
                   <div>
