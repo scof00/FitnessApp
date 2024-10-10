@@ -46,7 +46,9 @@
     border-radius: 4px;
     resize: none; /* Prevent resizing */
   }
-  
+  .specialButton{
+    margin: 1%;
+  }
   /* button {
     margin-left: 10px;
     padding: 10px 15px;
