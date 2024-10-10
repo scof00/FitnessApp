@@ -243,6 +243,55 @@ namespace FitnessApp.Repositories
             }
         }
 
+        public Progress GetLatestByExerciseId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT TOP 1 p.id as ProgressId, p.userId as UserId, p.ExerciseId as ExerciseId, reps, sets, weight, completionDate, notes, weightType, Exercises.name as ExerciseName, Exercises.muscleId as MuscleId FROM Progress as p LEFT JOIN Users on Users.id = p.userId LEFT JOIN Exercises on exerciseId = Exercises.id WHERE p.exerciseId = @exerciseId ORDER BY completionDate DESC";
+                    DbUtils.AddParameter(cmd, "@exerciseId", id);
+
+                    var reader = cmd.ExecuteReader();
+                    Progress progress = null;
+
+                    while (reader.Read())
+                    {
+                        if (progress == null)
+                        {
+                            progress = new Progress()
+                            {
+                                Id = DbUtils.GetInt(reader, "ProgressId"),
+                                UserId = DbUtils.GetInt(reader, "UserId"),
+                                ExerciseId = DbUtils.GetInt(reader, "ExerciseId"),
+                                Reps = DbUtils.GetInt(reader, "reps"),
+                                Sets = DbUtils.GetInt(reader, "sets"),
+                                Weight = DbUtils.GetInt(reader, "weight"),
+                                dateCompleted = DbUtils.GetDateTime(reader, "completionDate"),
+                                Notes = DbUtils.GetString(reader, "notes"),
+                                WeightType = DbUtils.GetString(reader, "weightType"),
+                                user = new User()
+                                {
+                                    Id = DbUtils.GetInt(reader, "UserId")
+                                },
+                                exercise = new Exercises()
+                                {
+                                    Id = DbUtils.GetInt(reader, "ExerciseId"),
+                                    Name = DbUtils.GetString(reader, "ExerciseName"),
+                                    MuscleId = DbUtils.GetInt(reader, "MuscleId"),
+                                    UserId = DbUtils.GetInt(reader, "UserId"),
+                                },
+                            };
+                        }
+
+                    }
+                    reader.Close();
+                    return progress;
+                }
+            }
+        }
+
         public void Add(Progress progress)
         {
             using (var conn = Connection)

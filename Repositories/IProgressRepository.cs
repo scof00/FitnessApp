@@ -10,6 +10,7 @@ namespace FitnessApp.Repositories
         List<Progress> GetAllByExerciseId(int id);
         List<Progress> GetAllByExerciseIdAsc(int id);
         Progress GetById(int id);
+        Progress GetLatestByExerciseId(int id);
         List<Progress> GetAllByUserId(int id);
         List<Progress> GetAll();
         void Update(Progress progress);

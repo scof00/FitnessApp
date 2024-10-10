@@ -41,3 +41,7 @@ export const updateProgress = (p) => {
         body: JSON.stringify(p)
     })
 }
+
+export const GetLatestByExerciseId = (id) => {
+    return fetch(`https://localhost:5001/api/Progress/latest/exerciseId=${id}`).then((res) => res.json());
+}

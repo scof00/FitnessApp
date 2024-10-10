@@ -55,6 +55,17 @@ namespace FitnessApp.Controllers
             return Ok(progress);
         }
 
+        [HttpGet("latest/exerciseId={id}")]
+        public IActionResult GetLatestByExerciseId(int id)
+        {
+            var progress = _progressRepository.GetLatestByExerciseId(id);
+            if (progress == null)
+            {
+                return NotFound();
+            }
+            return Ok(progress);
+        }
+
         // POST api/<ProgressController>
         [HttpPost]
         public IActionResult Post(Progress progress)

@@ -11,7 +11,10 @@ import {
   ModalFooter,
   ModalHeader,
 } from "reactstrap";
-import { CreateProgress } from "../../Managers/ProgressManager";
+import {
+  CreateProgress,
+  GetLatestByExerciseId,
+} from "../../Managers/ProgressManager";
 import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
 
 export const WorkoutInProgress = ({ currentUser }) => {
@@ -20,6 +23,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
   const [workoutExercises, setWorkoutExercises] = useState([]);
   const [exerciseProgress, setExerciseProgress] = useState([]);
   const [modal, setModal] = useState(false);
+  const [lastProgress, setLastProgress] = useState([]);
   const navigate = useNavigate();
   const toggle = () => setModal(!modal);
 
@@ -40,6 +44,14 @@ export const WorkoutInProgress = ({ currentUser }) => {
     });
   }, [workoutExercises]);
 
+  useEffect(() => {
+    const latestProgress = [];
+    workoutExercises.map((we) => {
+      GetLatestByExerciseId(we.exerciseId)
+        .then((data) => latestProgress.push(data))
+        .then(setLastProgress(latestProgress));
+    });
+  }, [workoutExercises]);
   const handleSubmit = (event) => {
     event.preventDefault();
     {
@@ -70,6 +82,51 @@ export const WorkoutInProgress = ({ currentUser }) => {
     }
   };
 
+  let recommendations = [];
+
+  const formula = (type) => {
+    recommendations = []
+    let repMax = 0;
+    lastProgress.map((lp) => {
+      let step1 = 37 -lp.reps;
+      let step2 = 36/step1;
+      let step3 = Math.round(lp.weight * step2);
+      repMax = step3;
+    })
+    if(type === 1) {
+      const finalWeight = repMax * 0.9;
+      const recommendation = {
+        weight: finalWeight,
+        reps: 4,
+        sets: 5
+      }
+      recommendations.push(recommendation)
+      console.log(recommendations)
+      toggle()
+    } else if (type === 2) {
+      const finalWeight = repMax * 0.75;
+      const recommendation = {
+        weight: finalWeight,
+        reps: 10,
+        sets: 4
+      }
+      recommendations.push(recommendation)
+      console.log(recommendations)
+      toggle()
+    } else if (type === 3) {
+      const finalWeight = repMax * 0.5;
+      const recommendation = {
+        weight: finalWeight,
+        reps: 15,
+        sets: 2
+      }
+      recommendations.push(recommendation)
+      console.log(recommendations)
+      toggle()
+    }
+
+  }
+
   return (
     <div className="workoutInProgress, coreComponent">
       <div className="backButton">
@@ -78,13 +135,21 @@ export const WorkoutInProgress = ({ currentUser }) => {
       <h2>
         <u>{workout.name}</u>
       </h2>
-      <Button color="info" className="recommendationsButton"outline onClick={toggle}>Recommendations</Button>
+      <Button
+        color="info"
+        className="recommendationsButton"
+        outline
+        onClick={toggle}
+      >
+        Recommendations
+      </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Recommendations</ModalHeader>
         <ModalBody>
           We can give you recommendations on how much to workout out based on
-          your fitness goals.
+          your fitness goals. We cannot give recommendations if you have not attempted the exercise before.
           <br></br>
+          <hr></hr>
           <b>Strength Training</b>- Less repetitions, more sets, and heavier
           weight to improve your strength!
           <br></br>
@@ -95,13 +160,13 @@ export const WorkoutInProgress = ({ currentUser }) => {
           improve your endurance!
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={toggle}>
+          <Button color="danger" onClick={() => formula(1)}>
             Strength
           </Button>{" "}
-          <Button color="warning" onClick={toggle}>
+          <Button color="warning" onClick={() =>formula(2)}>
             Hypertrophy
           </Button>{" "}
-          <Button color="success" onClick={toggle}>
+          <Button color="success" onClick={() =>formula(3)}>
             Endurance
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
