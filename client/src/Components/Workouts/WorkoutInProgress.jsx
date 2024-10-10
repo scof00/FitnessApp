@@ -75,6 +75,7 @@ export const WorkoutInProgress = ({currentUser}) => {
               <Input
                 className="progressInput"
                 required
+                defaultValue={10}
                 type="number"
                 placeholder="Sets"
                 onChange={(event) => {

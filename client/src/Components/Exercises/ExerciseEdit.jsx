@@ -77,7 +77,7 @@ export const ExerciseEdit = () => {
           <Input
             id="exerciseName"
             name="exerciseName"
-            placeholder={exercise.name}
+            defaultValue={exercise.name}
             className="exerciseFormInput"
             required
             onChange={(event) => {

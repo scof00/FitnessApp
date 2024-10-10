@@ -86,7 +86,7 @@ export const WorkoutEdit = ({ currentUser }) => {
       </div>
         <h2>Edit Workout</h2>
       <Input
-        placeholder={workout.name}
+        defaultValue={workout.name}
         onChange={(event) => {
           const workoutCopy = { ...workout };
           workoutCopy.name = event.target.value;

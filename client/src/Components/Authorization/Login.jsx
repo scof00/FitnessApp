@@ -52,7 +52,7 @@ export const Login = ({setIsLoggedIn}) => {
         />
       </FormGroup>
       <FormGroup>
-        <button onClick={loginSubmit}>Login</button>
+        <button className="exerciseButton" onClick={loginSubmit}>Login</button>
       </FormGroup>
       <em>
         Not registered? <Link to="/register">Register</Link>

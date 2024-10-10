@@ -60,7 +60,7 @@ export const ProgressEdit = () => {
             className="progressInput"
             required
             type="number"
-            placeholder={progress.sets}
+            defaultValue={progress.sets}
             onChange={(event) => {
               const progressCopy = { ...progress };
               progressCopy.sets = parseInt(event.target.value);
@@ -72,7 +72,7 @@ export const ProgressEdit = () => {
             required
             className="progressInput"
             type="number"
-            placeholder={progress.reps}
+            defaultValue={progress.reps}
             onChange={(event) => {
               const progressCopy = { ...progress };
               progressCopy.reps = parseInt(event.target.value);
@@ -86,7 +86,7 @@ export const ProgressEdit = () => {
             className="progressInput"
             required
             type="number"
-            placeholder={progress.weight}
+            defaultValue={progress.weight}
             onChange={(event) => {
               const progressCopy = { ...progress };
               progressCopy.weight = parseInt(event.target.value);
@@ -111,7 +111,7 @@ export const ProgressEdit = () => {
         <Label>Notes:</Label>
         <Input
           className="notesInput"
-          placeholder={progress.notes}
+          defaultValue={progress.notes}
           onChange={(event) => {
             const progressCopy = { ...progress };
             progressCopy.notes = event.target.value;
@@ -120,6 +120,7 @@ export const ProgressEdit = () => {
         ></Input>
         <Input
           type="date"
+          defaultValue={finalDate}
           onChange={(event) => {
             const progressCopy = { ...progress };
             progressCopy.dateCompleted = event.target.value;

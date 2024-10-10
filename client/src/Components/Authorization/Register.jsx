@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormGroup, Input, Label } from "reactstrap";
 import { CreateUser, login } from "../../Managers/UserManager";
+import { ArrowLeft } from "react-bootstrap-icons";
 
 export const Register = ({setIsLoggedIn}) => {
   const navigate = useNavigate();
@@ -24,6 +25,14 @@ export const Register = ({setIsLoggedIn}) => {
 
   return (
     <form className="loginForm">
+      <div className="backButton">
+        <ArrowLeft
+          size={30}
+          onClick={(event) => {
+            navigate(`login`);
+          }}
+        />
+      </div>
       <fieldset>
         <FormGroup>
           <Label for="username">Username</Label>
@@ -43,7 +52,7 @@ export const Register = ({setIsLoggedIn}) => {
         />
       </FormGroup>
       <FormGroup>
-        <button onClick={loginSubmit}>Register</button>
+        <button className="exerciseButton" onClick={loginSubmit}>Register</button>
       </FormGroup>
     </form>
   );

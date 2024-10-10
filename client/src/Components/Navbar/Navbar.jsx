@@ -20,12 +20,12 @@ export const Navbar = () => {
           </button>
         </Link>
         <Link to="jym">
-        <button type="button" className="btn btn-primary">
-          <div>
-            <img className="navbarLogo" src={TrainerLogo}></img>
-            Jym
-          </div>
-        </button>
+          <button type="button" className="btn btn-primary">
+            <div>
+              <img className="navbarLogo" src={TrainerLogo}></img>
+              Jym
+            </div>
+          </button>
         </Link>
         <Link to="workouts">
           <button type="button" className="btn btn-primary">
@@ -57,10 +57,12 @@ export const Navbar = () => {
           <img className="navbarLogo" src={DietTrackerLogo}></img>
           Diet
         </button> */}
-        <button type="button" className="btn btn-primary">
-          <img className="navbarLogo" src={BiometricsLogo}></img>
-          Biometrics
-        </button>
+        <Link to="userprofile">
+          <button type="button" className="btn btn-primary">
+            <img className="navbarLogo" src={BiometricsLogo}></img>
+            Profile
+          </button>
+        </Link>
         <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={SettingsLogo}></img>
           Settings

@@ -16,6 +16,8 @@ import { ProgressCreate } from "./Components/Progress/ProgressCreate";
 import { ProgressEdit } from "./Components/Progress/ProgressEdit";
 import { ProgressDelete } from "./Components/Progress/ProgressDelete";
 import { Jym } from "./Components/Jym/Jym";
+import { UserProfile } from "./Components/UserProfile/UserProfile";
+import { BiometricsEdit } from "./Components/UserProfile/UserProfileEdit";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -50,16 +52,51 @@ export const UserView = ({ currentUser }) => {
           path="exercises/edit/:exerciseId"
           element={<ExerciseEdit currentUser={currentUser} />}
         />
-        <Route path="exercises/delete/:exerciseId" element={<ExerciseDelete currentUser={currentUser} />} />
-        <Route path="workouts/delete/:workoutId" element= {<WorkoutDelete currentUser={currentUser} />} />
-        <Route path="workouts/edit/:workoutId" element= {<WorkoutEdit currentUser={currentUser} />} />
-        <Route path="workouts/inprogress/:workoutId" element={<WorkoutInProgress currentUser={currentUser}/> } />
-        <Route path="progress" element={<ProgressList currentUser={currentUser} />} />
-        <Route path="progress/details/:exerciseId" element={<ProgressDetails currentUser={currentUser} />} />
-        <Route path="progress/create/:exerciseId" element={<ProgressCreate currentUser={currentUser} />} />
-        <Route path="progress/edit/:progressId" element={<ProgressEdit currentUser={currentUser} />} />
-        <Route path="progress/delete/:progressId" element={<ProgressDelete currentUser={currentUser} />} />
+        <Route
+          path="exercises/delete/:exerciseId"
+          element={<ExerciseDelete currentUser={currentUser} />}
+        />
+        <Route
+          path="workouts/delete/:workoutId"
+          element={<WorkoutDelete currentUser={currentUser} />}
+        />
+        <Route
+          path="workouts/edit/:workoutId"
+          element={<WorkoutEdit currentUser={currentUser} />}
+        />
+        <Route
+          path="workouts/inprogress/:workoutId"
+          element={<WorkoutInProgress currentUser={currentUser} />}
+        />
+        <Route
+          path="progress"
+          element={<ProgressList currentUser={currentUser} />}
+        />
+        <Route
+          path="progress/details/:exerciseId"
+          element={<ProgressDetails currentUser={currentUser} />}
+        />
+        <Route
+          path="progress/create/:exerciseId"
+          element={<ProgressCreate currentUser={currentUser} />}
+        />
+        <Route
+          path="progress/edit/:progressId"
+          element={<ProgressEdit currentUser={currentUser} />}
+        />
+        <Route
+          path="progress/delete/:progressId"
+          element={<ProgressDelete currentUser={currentUser} />}
+        />
         <Route path="jym" element={<Jym currentUser={currentUser} />} />
+        <Route
+          path="userprofile"
+          element={<UserProfile currentUser={currentUser} />}
+        />
+        <Route
+          path="userprofile/:biometricsId"
+          element={<BiometricsEdit currentUser={currentUser} />}
+        />
       </Route>
     </Routes>
   );
