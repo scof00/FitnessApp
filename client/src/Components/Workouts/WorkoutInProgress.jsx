@@ -56,6 +56,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
         .then(setLastProgress(latestProgress));
     });
   }, [workoutExercises]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     {
@@ -73,7 +74,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
         CreateProgress(newProgress);
       });
     }
-    navigate("/");
+    navigate("/home");
   };
 
   const alert = (event) => {
@@ -87,10 +88,10 @@ export const WorkoutInProgress = ({ currentUser }) => {
   };
   let recommendations = [];
 
-  const formula = (type) => {
+  const formula = async (type) => {
+    await setUsingRecommendation(false);
     recommendations = [];
     let repMax = 0;
-    setUsingRecommendation(true);
     lastProgress.map((lp) => {
       let step1 = 37 - lp.reps;
       let step2 = 36 / step1;
@@ -104,11 +105,12 @@ export const WorkoutInProgress = ({ currentUser }) => {
           sets: 6,
           exerciseId: lp.exerciseId,
         };
+        setUsingRecommendation(true)
         recommendations.push(recommendation);
         setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
         
-        console.log(recommendations);
+        
         toggle();
       } else if (type === 2) {
         const finalWeight = repMax * 0.75;
@@ -119,7 +121,8 @@ export const WorkoutInProgress = ({ currentUser }) => {
           exerciseId: lp.exerciseId,
         };
         recommendations.push(recommendation);
-        console.log(recommendations);
+      
+        setUsingRecommendation(true)
         setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
         toggle();
@@ -132,7 +135,8 @@ export const WorkoutInProgress = ({ currentUser }) => {
           exerciseId: lp.exerciseId,
         };
         recommendations.push(recommendation);
-        console.log(recommendations);
+        setUsingRecommendation(true)
+       
         setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
         
@@ -147,7 +151,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
   };
 
   return (
-    <div className="workoutInProgress, coreComponent">
+    <form className="workoutInProgress, coreComponent">
       <div className="backButton">
         <ArrowLeft size={30} onClick={alert} />
       </div>
@@ -180,7 +184,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
           improve your endurance!
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={() => formula(1)}>
+          <Button color="danger" onClick={()=> {formula(1)}}>
             Strength
           </Button>{" "}
           <Button color="warning" onClick={() => formula(2)}>
@@ -190,7 +194,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
             Endurance
           </Button>{" "}
           <Button color="secondary" onClick={cancelRecommendation}>
-            Cancel
+            Clear
           </Button>
         </ModalFooter>
       </Modal>
@@ -217,6 +221,6 @@ export const WorkoutInProgress = ({ currentUser }) => {
       <button className="exerciseButton" onClick={handleSubmit}>
         Finish Workout
       </button>
-    </div>
+    </form>
   );
 };

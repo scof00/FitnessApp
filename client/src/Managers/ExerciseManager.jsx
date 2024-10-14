@@ -1,9 +1,9 @@
-export const GetExerciseByUserId = (userId) => {
-    return fetch(`https://localhost:5001/api/Exercise/userId=${userId}`).then((res) => res.json());
+export const GetExerciseByUserId = async (userId) => {
+    return await fetch(`https://localhost:5001/api/Exercise/userId=${userId}`).then((res) => res.json());
 }
 
-export const createExercise = (e) => {
-    return fetch(`https://localhost:5001/api/Exercise`, {
+export const createExercise = async (e) => {
+    return await fetch(`https://localhost:5001/api/Exercise`, {
         method: "POST",
         headers: {
             "Content-Type":"application/json",
@@ -12,12 +12,12 @@ export const createExercise = (e) => {
     })
 }
 
-export const GetExerciseById = (id) => {
-    return fetch(`https://localhost:5001/api/Exercise/${id}`).then((res) => res.json())
+export const GetExerciseById = async (id) => {
+    return await fetch(`https://localhost:5001/api/Exercise/${id}`).then((res) => res.json())
 }
 
-export const updateExercise = (e) => {
-    return fetch(`https://localhost:5001/api/Exercise/${e.id}`, {
+export const updateExercise = async (e) => {
+    return await fetch(`https://localhost:5001/api/Exercise/${e.id}`, {
         method: "PUT",
         headers: {
             "Content-Type":"application/json",
@@ -26,6 +26,6 @@ export const updateExercise = (e) => {
     })
 }
 
-export const deleteExercise = (id) => {
-    return fetch(`https://localhost:5001/api/Exercise/${id}`, {method:"DELETE"})
+export const deleteExercise = async (id) => {
+    return await fetch(`https://localhost:5001/api/Exercise/${id}`, {method:"DELETE"})
 }

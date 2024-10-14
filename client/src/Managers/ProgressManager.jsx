@@ -1,5 +1,5 @@
-export const CreateProgress = (p) => {
-    return fetch(`https://localhost:5001/api/Progress`, {
+export const CreateProgress = async (p) => {
+    return await fetch(`https://localhost:5001/api/Progress`, {
         method: "POST",
         headers: {
             "Content-Type":"application/json",
@@ -8,32 +8,32 @@ export const CreateProgress = (p) => {
     })
 }
 
-export const GetProgressByUserId = (userId) => {
-    return fetch(`https://localhost:5001/api/Progress/userId=${userId}`).then((res) => res.json());
+export const GetProgressByUserId = async (userId) => {
+    return await fetch(`https://localhost:5001/api/Progress/userId=${userId}`).then((res) => res.json());
 }
 
-export const GetProgressByExerciseId = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/exerciseId=${id}`).then((res) => res.json());
+export const GetProgressByExerciseId = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/exerciseId=${id}`).then((res) => res.json());
 }
 
-export const GetProgressByExerciseIdAsc = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/exerciseId=${id}/Asc`).then((res) => res.json());
+export const GetProgressByExerciseIdAsc = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/exerciseId=${id}/Asc`).then((res) => res.json());
 }
 
-export const DeleteByExerciseId = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/exerciseid=${id}`, {method:"DELETE"})
+export const DeleteByExerciseId = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/exerciseid=${id}`, {method:"DELETE"})
 }
 
-export const GetProgressById = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/${id}`).then((res) => res.json());
+export const GetProgressById = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/${id}`).then((res) => res.json());
 }
 
-export const DeleteProgress = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/${id}`, {method:"DELETE"})
+export const DeleteProgress = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/${id}`, {method:"DELETE"})
 }
 
-export const updateProgress = (p) => {
-    return fetch(`https://localhost:5001/api/Progress/${p.id}`, {
+export const updateProgress = async (p) => {
+    return await fetch(`https://localhost:5001/api/Progress/${p.id}`, {
         method: "PUT",
         headers: {
             "Content-Type":"application/json",
@@ -42,6 +42,6 @@ export const updateProgress = (p) => {
     })
 }
 
-export const GetLatestByExerciseId = (id) => {
-    return fetch(`https://localhost:5001/api/Progress/latest/exerciseId=${id}`).then((res) => res.json());
+export const GetLatestByExerciseId = async (id) => {
+    return await fetch(`https://localhost:5001/api/Progress/latest/exerciseId=${id}`).then((res) => res.json());
 }

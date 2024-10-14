@@ -53,7 +53,7 @@ export const Login = ({setIsLoggedIn}) => {
              }
              localStorage.setItem("FitnessAppUser", JSON.stringify(userProfile))
              setIsLoggedIn(true)
-             navigate("/")
+             navigate("/home")
          }
      })
 

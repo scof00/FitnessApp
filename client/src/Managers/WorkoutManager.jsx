@@ -1,9 +1,9 @@
-export const GetWorkoutsByUserId = (userId) => {
-    return fetch(`https://localhost:5001/api/Workout/userId=${userId}`).then((res) => res.json());
+export const GetWorkoutsByUserId = async (userId) => {
+    return await fetch(`https://localhost:5001/api/Workout/userId=${userId}`).then((res) => res.json());
 }
 
-export const CreateWorkout = (w) => {
-    return fetch(`https://localhost:5001/api/Workout`, {
+export const CreateWorkout = async (w) => {
+    return await fetch(`https://localhost:5001/api/Workout`, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
@@ -16,16 +16,16 @@ export const CreateWorkout = (w) => {
     })
 };
 
-export const GetWorkoutById = (workoutId) => {
-    return fetch(`https://localhost:5001/api/Workout/${workoutId}`).then((res) => res.json());
+export const GetWorkoutById = async (workoutId) => {
+    return await fetch(`https://localhost:5001/api/Workout/${workoutId}`).then((res) => res.json());
 }
 
-export const DeleteWorkout = (workoutId) => {
-    return fetch(`https://localhost:5001/api/Workout/${workoutId}`, {method: "DELETE"})
+export const DeleteWorkout = async (workoutId) => {
+    return await fetch(`https://localhost:5001/api/Workout/${workoutId}`, {method: "DELETE"})
 }
 
-export const updateWorkout = (w) => {
-    return fetch(`https://localhost:5001/api/Workout/${w.id}`, {
+export const updateWorkout = async (w) => {
+    return await fetch(`https://localhost:5001/api/Workout/${w.id}`, {
         method: "PUT",
         headers: {
             "Content-Type":"application/json",
