@@ -59,6 +59,8 @@ export const ProgressEdit = () => {
           <Input
             className="progressInput"
             required
+            min={0}
+            max={2000}
             type="number"
             defaultValue={progress.sets}
             onChange={(event) => {
@@ -72,6 +74,8 @@ export const ProgressEdit = () => {
             required
             className="progressInput"
             type="number"
+            min={0}
+            max={2000}
             defaultValue={progress.reps}
             onChange={(event) => {
               const progressCopy = { ...progress };
@@ -85,6 +89,8 @@ export const ProgressEdit = () => {
           <Input
             className="progressInput"
             required
+            min={0}
+            max={2000}
             type="number"
             defaultValue={progress.weight}
             onChange={(event) => {

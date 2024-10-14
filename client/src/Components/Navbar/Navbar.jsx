@@ -9,15 +9,16 @@ import DietTrackerLogo from "../../assets/food-dish-svgrepo-com.svg";
 import TrainerLogo from "../../assets/muscle-up-svgrepo-com.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../Managers/UserManager";
+import { House, HouseFill } from "react-bootstrap-icons";
 export const Navbar = () => {
   const navigate = useNavigate();
   return (
     <div className="navbar">
       <div>
         <Link to="/">
-          <button type="button" className="btn btn-primary">
-            trAIner
-          </button>
+          <HouseFill type="button" className="btn btn-primary">
+            
+          </HouseFill>
         </Link>
         <Link to="jym">
           <button type="button" className="btn btn-primary">

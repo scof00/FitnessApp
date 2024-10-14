@@ -48,6 +48,8 @@ export const ProgressCreate = ({ currentUser }) => {
         <Input
           className="progressInput"
           required
+          min={0}
+          max={2000}
           type="number"
           placeholder="Sets"
           onChange={(event) => {
@@ -60,6 +62,8 @@ export const ProgressCreate = ({ currentUser }) => {
           required
           className="progressInput"
           type="number"
+          min={0}
+          max={2000}
           placeholder="Reps"
           onChange={(event) => {
             const progressCopy = { ...progress };
@@ -72,6 +76,8 @@ export const ProgressCreate = ({ currentUser }) => {
         <Input
           className="progressInput"
           required
+          min={0}
+          max={2000}
           type="number"
           placeholder="Weight"
           onChange={(event) => {

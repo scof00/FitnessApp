@@ -89,8 +89,8 @@ export const WorkoutInProgress = ({ currentUser }) => {
 
   const formula = (type) => {
     recommendations = [];
-    setUsingRecommendation(true);
     let repMax = 0;
+    setUsingRecommendation(true);
     lastProgress.map((lp) => {
       let step1 = 37 - lp.reps;
       let step2 = 36 / step1;
@@ -105,7 +105,9 @@ export const WorkoutInProgress = ({ currentUser }) => {
           exerciseId: lp.exerciseId,
         };
         recommendations.push(recommendation);
+        setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
+        
         console.log(recommendations);
         toggle();
       } else if (type === 2) {
@@ -118,6 +120,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
         };
         recommendations.push(recommendation);
         console.log(recommendations);
+        setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
         toggle();
       } else if (type === 3) {
@@ -130,7 +133,9 @@ export const WorkoutInProgress = ({ currentUser }) => {
         };
         recommendations.push(recommendation);
         console.log(recommendations);
+        setExerciseProgress(recommendations)
         setRecommendationData(recommendations);
+        
         toggle();
       }
     });

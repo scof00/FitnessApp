@@ -15,6 +15,8 @@ export const WithoutRecommendation = ({
           <Input
             className="progressInput"
             required
+            min={0}
+            max={2000}
             type="number"
             placeholder="Sets"
             onChange={(event) => {
@@ -35,6 +37,8 @@ export const WithoutRecommendation = ({
             required
             className="progressInput"
             type="number"
+            min={0}
+            max={2000}
             placeholder="Reps"
             onChange={(event) => {
               const ExerciseProgressCopy = [...exerciseProgress];
@@ -53,6 +57,8 @@ export const WithoutRecommendation = ({
           <Label className="workoutLabel">Weight:</Label>
           <Input
             className="progressInput"
+            min={0}
+            max={2000}
             required
             type="number"
             placeholder="Weight"

@@ -8,31 +8,19 @@ export const WorkoutRecommendation = ({
 }) => {
   return (
     <div>
-      {recommendationData.map((r) => {
+      {exerciseProgress.map((r) => {
         if (r.exerciseId === we.exerciseId) {
-            // const progressCopy = [...exerciseProgress]
-            // progressCopy.map((p) => {
-            //     if(p.exerciseId === r.exerciseId){
-            //         const defaultProgress = {
-            //             exerciseId: p.exerciseId,
-            //             sets: r.sets,
-            //             reps: r.reps,
-            //             weight: r.weight
-            //         }
-            //         progressCopy.push(defaultProgress)
-            //         setExerciseProgress(progressCopy)
-            //     }
-            // })
           return (
             <div>
               <u>{we.exerciseName}</u>
               <div className="progressLine">
                 <div className="progressInfo">
                   <Label className="workoutLabel">Sets:</Label>
-
                   <Input
                     className="progressInput"
                     required
+                    min={0}
+                    max={2000}
                     defaultValue={r.sets}
                     type="number"
                     placeholder="Sets"
@@ -49,11 +37,12 @@ export const WorkoutRecommendation = ({
                 </div>
                 <div className="progressInfo">
                   <Label className="workoutLabel"> Repetitions: </Label>
-
                   <Input
                     required
                     className="progressInput"
                     defaultValue={r.reps}
+                    min={0}
+                    max={2000}
                     type="number"
                     placeholder="Reps"
                     onChange={(event) => {
@@ -74,6 +63,8 @@ export const WorkoutRecommendation = ({
                   <Input
                     className="progressInput"
                     required
+                    min={0}
+                    max={2000}
                     defaultValue={r.weight}
                     type="number"
                     placeholder="Weight"
@@ -90,7 +81,6 @@ export const WorkoutRecommendation = ({
                 </div>
                 <div className="progressInfo">
                   <Label className="workoutLabel"> Type:</Label>
-
                   <Input
                     type="select"
                     required

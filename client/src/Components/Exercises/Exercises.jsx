@@ -3,7 +3,7 @@ import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
 import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, Pen, PencilSquare, Trash } from "react-bootstrap-icons";
+import { Eye, GraphUp, Pen, PencilSquare, Trash } from "react-bootstrap-icons";
 
 export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
@@ -35,7 +35,7 @@ export const Exercises = ({ currentUser }) => {
                         <div className="editAndDelete">
                           {e.name}
                           <div className="buttons">
-                            <Eye
+                            <GraphUp
                               size={20}
                               onClick={(event) => {
                                 navigate(`/progress/details/${e.id}`);

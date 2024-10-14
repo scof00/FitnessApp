@@ -28,3 +28,7 @@ export const CreateUser = (u) => {
         body: JSON.stringify(u)
     })
 }
+
+export const GetAllUsers = () => {
+    return fetch(`https://localhost:5001/api/User`).then((res) => res.json());
+}
