@@ -31,7 +31,7 @@ export const UserView = ({ currentUser }) => {
           </>
         }
       >
-        <Route index path="/" element={<Home currentUser={currentUser} />} />
+        <Route index path="/home" element={<Home currentUser={currentUser} />} />
         <Route
           path="workouts"
           element={<Workouts currentUser={currentUser} />}
