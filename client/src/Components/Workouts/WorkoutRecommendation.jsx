@@ -124,9 +124,9 @@ export const WorkoutRecommendation = ({
   } else {
     // Render when no match is found
     const exerciseCopy = [...exerciseProgress];
-    exerciseCopy.push({exerciseId: we.exerciseId});
-    console.log(exerciseCopy)
-    setExerciseProgress(exerciseCopy)
+    exerciseCopy.push({ exerciseId: we.exerciseId });
+    console.log(exerciseCopy);
+    setExerciseProgress(exerciseCopy);
     return (
       <div>
         <u>{we.exerciseName}</u>

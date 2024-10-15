@@ -9,7 +9,7 @@ import DietTrackerLogo from "../../assets/food-dish-svgrepo-com.svg";
 import TrainerLogo from "../../assets/muscle-up-svgrepo-com.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../Managers/UserManager";
-import { House, HouseFill } from "react-bootstrap-icons";
+import { BoxArrowRight, House, HouseFill } from "react-bootstrap-icons";
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,15 +72,16 @@ export const Navbar = () => {
           Settings
         </button>
         <button type="button" className="btn btn-primary">
-          <a
+          <BoxArrowRight
+          className="navbarLogo"
             onClick={() => {
               logout();
               navigate("/");
               window.location.reload();
             }}
           >
+          </BoxArrowRight>
             Logout
-          </a>
         </button>
       </div>
     </div>

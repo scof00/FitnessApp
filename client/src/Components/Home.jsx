@@ -10,6 +10,8 @@ export const Home = ({ currentUser }) => {
   const navigate = useNavigate();
   return (
     <div className="coreComponent">
+      <h1>trAIner</h1>
+      <br></br>
       <div>
         Welcome <b>{currentUser.username}</b>,<br></br>
         would you like to begin workout?
@@ -35,7 +37,9 @@ export const Home = ({ currentUser }) => {
             <img className="homepageButton" src={BiometricsLogo}></img>
           </Link>
         </div>
-        <img className="homepageLogo" src={TrainerLogo}></img>
+        <Link to="/jym">
+          <img className="homepageLogo" src={TrainerLogo}></img>
+        </Link>
       </div>
     </div>
   );

@@ -36,17 +36,20 @@ export const Exercises = ({ currentUser }) => {
                           {e.name}
                           <div className="buttons">
                             <GraphUp
+                            className="exerciseIcons"
                               size={20}
                               onClick={(event) => {
                                 navigate(`/progress/details/${e.id}`);
                               }}
                             />
                             <PencilSquare
+                            className="exerciseIcons"
                               size={20}
                               onClick={(event) => navigate(`edit/${e.id}`)}
                             />
                             <Trash
                               size={20}
+                              className="exerciseIcons"
                               onClick={(event) => navigate(`delete/${e.id}`)}
                             />
                           </div>

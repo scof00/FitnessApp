@@ -60,7 +60,6 @@ export const Register = ({ setIsLoggedIn }) => {
       showValidationSnackbar();
     }
     else{
-      showApprovalSnackbar();
       const userProfile = {
         username: username,
         password: password,

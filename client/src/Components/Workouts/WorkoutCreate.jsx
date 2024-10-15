@@ -4,7 +4,7 @@ import {
   GetExerciseByUserId,
 } from "../../Managers/ExerciseManager";
 import { useNavigate, useParams } from "react-router-dom";
-import { Accordion, Input } from "reactstrap";
+import { Accordion, Form, Input } from "reactstrap";
 import { Exercises } from "../Exercises/Exercises";
 import { ExercisesForUse } from "../Exercises/ExercisesForWorkoutCreate";
 import { ArrowLeft, ArrowLeftSquare, PlusCircle, XSquare } from "react-bootstrap-icons";
@@ -60,7 +60,7 @@ export const WorkoutCreate = ({ currentUser }) => {
   };
 
   return (
-    <div className="workoutCreateForm, coreComponent">
+    <Form className="workoutCreateForm, coreComponent" onSubmit={handleSave}>
       <div className="backButton">
         <ArrowLeft
           size={30}
@@ -72,6 +72,7 @@ export const WorkoutCreate = ({ currentUser }) => {
       <h2>Create a new workout</h2>
       <Input
         placeholder="Workout Name"
+        required
         onChange={(event) => {
           const workoutCopy = { ...workout };
           workoutCopy.name = event.target.value;
@@ -108,10 +109,11 @@ export const WorkoutCreate = ({ currentUser }) => {
       />
       <button
         className="exerciseButton"
-        onClick={handleSave}
+        
+        type="submit"
       >
         Create New Workout
       </button>
-    </div>
+    </Form>
   );
 };

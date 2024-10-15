@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Input } from "reactstrap";
+import { Input, Label } from "reactstrap";
 import { GetExerciseById } from "../../Managers/ExerciseManager";
 import { CreateProgress } from "../../Managers/ProgressManager";
 import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
@@ -44,62 +44,74 @@ export const ProgressCreate = ({ currentUser }) => {
       <div>
         Add a progress update for: <b>{exercise.name}</b>
       </div>
-      <div className="progressInfo">
-        <Input
-          className="progressInput"
-          required
-          min={0}
-          max={2000}
-          type="number"
-          placeholder="Sets"
-          onChange={(event) => {
-            const progressCopy = { ...progress };
-            progressCopy.sets = parseInt(event.target.value);
-            setProgress(progressCopy);
-          }}
-        ></Input>
-        <Input
-          required
-          className="progressInput"
-          type="number"
-          min={0}
-          max={2000}
-          placeholder="Reps"
-          onChange={(event) => {
-            const progressCopy = { ...progress };
-            progressCopy.reps = parseInt(event.target.value);
-            setProgress(progressCopy);
-          }}
-        ></Input>
+      <div className="progressLine">
+        <div className="progressInfo">
+          <Label className="workoutLabel">Sets:</Label>
+          <Input
+            className="progressInput"
+            required
+            min={0}
+            max={2000}
+            type="number"
+            placeholder="Sets"
+            onChange={(event) => {
+              const progressCopy = { ...progress };
+              progressCopy.sets = parseInt(event.target.value);
+              setProgress(progressCopy);
+            }}
+          ></Input>
+        </div>
+        <div className="progressInfo">
+          <Label className="workoutLabel">Repetitions:</Label>
+          <Input
+            required
+            className="progressInput"
+            type="number"
+            min={0}
+            max={2000}
+            placeholder="Reps"
+            onChange={(event) => {
+              const progressCopy = { ...progress };
+              progressCopy.reps = parseInt(event.target.value);
+              setProgress(progressCopy);
+            }}
+          ></Input>
+        </div>
       </div>
-      <div className="progressInfo">
-        <Input
-          className="progressInput"
-          required
-          min={0}
-          max={2000}
-          type="number"
-          placeholder="Weight"
-          onChange={(event) => {
-            const progressCopy = { ...progress };
-            progressCopy.weight = parseInt(event.target.value);
-            setProgress(progressCopy);
-          }}
-        ></Input>
-        <Input
-          type="select"
-          required
-          className="progressInput"
-          onChange={(event) => {
-            const progressCopy = { ...progress };
-            progressCopy.weightType = event.target.value;
-            setProgress(progressCopy);
-          }}
-        >
-          <option>Weight</option>
-          <option value="lbs">lbs</option>
-          <option value="kgs">kgs</option>
-        </Input>
+      <div className="progressLine">
+        <div className="progressInfo">
+          <Label className="workoutLabel">Weight:</Label>
+          <Input
+            className="progressInput"
+            required
+            min={0}
+            max={2000}
+            type="number"
+            placeholder="Weight"
+            onChange={(event) => {
+              const progressCopy = { ...progress };
+              progressCopy.weight = parseInt(event.target.value);
+              setProgress(progressCopy);
+            }}
+          ></Input>
+        </div>
+        <div className="progressInfo">
+          <Label className="workoutLabel">Type:</Label>
+          <Input
+            type="select"
+            required
+            className="progressInput"
+            onChange={(event) => {
+              const progressCopy = { ...progress };
+              progressCopy.weightType = event.target.value;
+              setProgress(progressCopy);
+            }}
+          >
+            <option>Weight</option>
+            <option value="lbs">lbs</option>
+            <option value="kgs">kgs</option>
+          </Input>
+        </div>
       </div>
       <Input
         className="notesInput"

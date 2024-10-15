@@ -57,24 +57,53 @@ export const WorkoutInProgress = ({ currentUser }) => {
     });
   }, [workoutExercises]);
 
+  const showValidationSnackbar = () => {
+
+    
+    var x = document.getElementById("validation");
+    
+    // Add the "show" class to DIV
+    x.className = "show";
+    
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    {
-      exerciseProgress.map((ep) => {
-        const newProgress = {
-          userId: currentUser.id,
-          exerciseId: ep.exerciseId,
-          reps: ep.reps,
-          sets: ep.sets,
-          weight: ep.weight,
-          notes: ep?.notes,
-          weightType: ep.weightType,
-          dateCompleted: new Date(),
-        };
-        CreateProgress(newProgress);
-      });
-    }
-    navigate("/home");
+    let weightTypeSelected = true
+    exerciseProgress.some((p) => {
+      
+      if(!p.weightType || p.weightType === "Weight" || p.weightType === undefined){
+        weightTypeSelected = false
+      }
+    })
+
+      if(weightTypeSelected === false){
+        showValidationSnackbar();
+
+      } else {
+        
+        {exerciseProgress.map((ep) => {
+            const newProgress = {
+              userId: currentUser.id,
+              exerciseId: ep.exerciseId,
+              reps: ep.reps,
+              sets: ep.sets,
+              weight: ep.weight,
+              notes: ep?.notes,
+              weightType: ep.weightType,
+              dateCompleted: new Date(),
+            };
+            CreateProgress(newProgress);
+          });
+        }
+        navigate("/home");
+      }
+
+      
   };
 
   const alert = (event) => {
@@ -151,7 +180,8 @@ export const WorkoutInProgress = ({ currentUser }) => {
   };
 
   return (
-    <form className="workoutInProgress, coreComponent">
+    <form className="workoutInProgress, coreComponent" onSubmit={handleSubmit}>
+      <div id="validation">Please select weight type.</div>
       <div className="backButton">
         <ArrowLeft size={30} onClick={alert} />
       </div>
@@ -218,7 +248,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
         );
       })}
 
-      <button className="exerciseButton" onClick={handleSubmit}>
+      <button className="exerciseButton" type="submit">
         Finish Workout
       </button>
     </form>
