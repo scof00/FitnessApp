@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import { ArrowLeft } from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+    CreateBiometrics,
   GetBiometricsByUserId,
   updateBiometrics,
 } from "../../Managers/BiometricManager";
 import { Input, Label } from "reactstrap";
 
-export const BiometricsEdit = ({ currentUser }) => {
-  const [biometrics, setBiometrics] = useState({});
+export const BiometricsCreate = ({ currentUser }) => {
+  const [biometrics, setBiometrics] = useState({ weight: "", height: "" });
   const navigate = useNavigate();
   const user = currentUser;
-  useEffect(() => {
-    GetBiometricsByUserId(currentUser.id).then((data) => setBiometrics(data));
-  }, [user]);
   const heightOptions = [
     { feetInches: "4'0\"", inches: 48, centimeters: 121.92 },
     { feetInches: "4'1\"", inches: 49, centimeters: 124.46 },
@@ -327,19 +325,43 @@ export const BiometricsEdit = ({ currentUser }) => {
     { pounds: 350, kilograms: 158.76 },
   ];
 
+  const showValidationSnackbar = () => {
+    var x = document.getElementById("validation");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  };
+
   const handleSave = (event) => {
     event.preventDefault();
-    const newBiometrics = {
-      id: biometrics.id,
-      userId: biometrics.userId,
-      age: parseInt(biometrics.age),
-      weight: parseInt(biometrics.weight),
-      height: parseInt(biometrics.height),
-    };
-    updateBiometrics(newBiometrics).then(navigate("/userprofile"));
+    let allOptionsSelected = true;
+    if (
+      biometrics.weight === "" ||
+      biometrics.weight === "Customary / Metric" ||
+      biometrics.height === "" ||
+      biometrics.height === "Customary / Metric"
+    ) {
+      allOptionsSelected = false;
+    }
+    if (allOptionsSelected === false) {
+      showValidationSnackbar();
+    } else {
+
+        const newBiometrics = {
+            userId: currentUser.id,
+            age: parseInt(biometrics.age),
+            weight: parseInt(biometrics.weight),
+            height: parseInt(biometrics.height),
+        };
+        CreateBiometrics(newBiometrics).then(navigate("/userprofile"));
+    }
   };
   return (
     <form className="coreComponent" onSubmit={handleSave}>
+      <div id="validation">Please select weight or height.</div>
       <div className="backButton">
         <ArrowLeft
           size={30}
@@ -350,7 +372,10 @@ export const BiometricsEdit = ({ currentUser }) => {
       </div>
       <Label>Age:</Label>
       <Input
-        defaultValue={biometrics.age}
+        required
+        placeholder="Age"
+        min={0}
+        max={120}
         type="number"
         onChange={(event) => {
           const biometricsCopy = { ...biometrics };
@@ -359,7 +384,7 @@ export const BiometricsEdit = ({ currentUser }) => {
         }}
       ></Input>
 
-<Label>Height:</Label>
+      <Label>Height:</Label>
       <Input
         type="select"
         onChange={(event) => {
@@ -396,9 +421,7 @@ export const BiometricsEdit = ({ currentUser }) => {
           );
         })}
       </Input>
-      <button className="exerciseButton" type="submit">
-        Save
-      </button>
+      <button className="exerciseButton" type="submit">Save</button>
     </form>
   );
 };

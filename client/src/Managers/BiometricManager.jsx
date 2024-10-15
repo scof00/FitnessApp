@@ -11,3 +11,13 @@ export const updateBiometrics = async (b) => {
         body: JSON.stringify(b)
     })
 }
+
+export const CreateBiometrics = async (b) => {
+        return await fetch(`https://localhost:5001/api/Biometrics`, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify(b)
+        })
+}

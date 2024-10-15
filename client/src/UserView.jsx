@@ -18,6 +18,7 @@ import { ProgressDelete } from "./Components/Progress/ProgressDelete";
 import { Jym } from "./Components/Jym/Jym";
 import { UserProfile } from "./Components/UserProfile/UserProfile";
 import { BiometricsEdit } from "./Components/UserProfile/UserProfileEdit";
+import { BiometricsCreate } from "./Components/UserProfile/BiometricsCreate";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -31,7 +32,11 @@ export const UserView = ({ currentUser }) => {
           </>
         }
       >
-        <Route index path="/home" element={<Home currentUser={currentUser} />} />
+        <Route
+          index
+          path="/home"
+          element={<Home currentUser={currentUser} />}
+        />
         <Route
           path="workouts"
           element={<Workouts currentUser={currentUser} />}
@@ -92,6 +97,10 @@ export const UserView = ({ currentUser }) => {
         <Route
           path="userprofile"
           element={<UserProfile currentUser={currentUser} />}
+        />
+        <Route
+          path="userprofile/create"
+          element={<BiometricsCreate currentUser={currentUser} />}
         />
         <Route
           path="userprofile/:biometricsId"
