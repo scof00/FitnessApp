@@ -14,11 +14,24 @@ export const ExerciseCreate = ({ currentUser }) => {
   useEffect(() => {
     getMuscles().then((data) => setMuscles(data));
   }, []);
+  const showValidationSnackbar = () => {
+
+    
+    var x = document.getElementById("validation");
+    
+    // Add the "show" class to DIV
+    x.className = "show";
+    
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  }
 
   const handleSave = (event) => {
     event.preventDefault();
-    if (!exercise.muscleId) {
-      window.alert("Please select muscle group!");
+    if (!exercise.muscleId || exercise.muscleId === 0) {
+      showValidationSnackbar();
     } else if (!exercise.name) {
       window.alert("Please enter an exercise name!");
     } else {
@@ -34,7 +47,8 @@ export const ExerciseCreate = ({ currentUser }) => {
   };
 
   return (
-    <form className="exerciseCreateForm, coreComponent">
+    <form className="exerciseCreateForm, coreComponent" onSubmit={handleSave}>
+      <div id="validation">Please select a muscle group.</div>
       <div className="backButton">
         <ArrowLeft
           size={30}
@@ -82,7 +96,7 @@ export const ExerciseCreate = ({ currentUser }) => {
         ></Input>
       </fieldset>
       <fieldset>
-        <button onClick={handleSave} className="exerciseButton">Create Exercise</button>
+        <button type="submit" className="exerciseButton">Create Exercise</button>
       </fieldset>
     </form>
   );

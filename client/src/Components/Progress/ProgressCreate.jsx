@@ -8,31 +8,53 @@ import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
 export const ProgressCreate = ({ currentUser }) => {
   const { exerciseId } = useParams();
   const [exercise, setExercise] = useState({});
-  const [progress, setProgress] = useState({});
+  const [progress, setProgress] = useState({ weightType: "" });
   const navigate = useNavigate();
 
   useState(() => {
     GetExerciseById(exerciseId).then((data) => setExercise(data));
   }, []);
 
+  const showValidationSnackbar = () => {
+    var x = document.getElementById("validation");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newProgress = {
-      userId: currentUser.id,
-      exerciseId: exerciseId,
-      reps: progress.reps,
-      sets: progress.sets,
-      weight: progress.weight,
-      notes: progress?.notes,
-      weightType: progress.weightType,
-      dateCompleted: progress.dateCompleted,
-    };
-    CreateProgress(newProgress).then(
-      navigate(`/progress/details/${exerciseId}`)
-    );
+
+    let weightTypeSelected = true;
+
+    if (progress.weightType === "" || progress.weightType === "Weight") {
+      weightTypeSelected = false;
+    }
+
+    if (weightTypeSelected === false) {
+      showValidationSnackbar();
+    } else {
+      const newProgress = {
+        userId: currentUser.id,
+        exerciseId: exerciseId,
+        reps: progress.reps,
+        sets: progress.sets,
+        weight: progress.weight,
+        notes: progress?.notes,
+        weightType: progress.weightType,
+        dateCompleted: progress.dateCompleted,
+      };
+      CreateProgress(newProgress).then(
+        navigate(`/progress/details/${exerciseId}`)
+      );
+    }
   };
   return (
-    <div className="progressList, coreComponent">
+    <form className="progressList, coreComponent" onSubmit={handleSubmit}>
+      <div id="validation">Please select weight type.</div>
       <div className="backButton">
         <ArrowLeft
           size={30}
@@ -124,6 +146,7 @@ export const ProgressCreate = ({ currentUser }) => {
       ></Input>
       <Input
         type="date"
+        required
         onChange={(event) => {
           const progressCopy = { ...progress };
           progressCopy.dateCompleted = event.target.value;
@@ -131,9 +154,9 @@ export const ProgressCreate = ({ currentUser }) => {
         }}
       ></Input>
 
-      <button className="exerciseButton" onClick={handleSubmit}>
+      <button className="exerciseButton" type="submit">
         Save
       </button>
-    </div>
+    </form>
   );
 };

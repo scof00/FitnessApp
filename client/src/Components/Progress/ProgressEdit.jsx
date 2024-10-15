@@ -16,31 +16,52 @@ export const ProgressEdit = () => {
     GetProgressById(progressId).then((data) => setProgress(data));
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newProgress = {
-      id: progress.id,
-      userId: progress.userId,
-      exerciseId: progress.exerciseId,
-      reps: progress.reps,
-      sets: progress.sets,
-      weight: progress.weight,
-      notes: progress?.notes,
-      weightType: progress.weightType,
-      dateCompleted: progress.dateCompleted,
-    };
-    updateProgress(newProgress).then(
-      navigate(`/progress/details/${progress.exerciseId}`)
-    );
+  const showValidationSnackbar = () => {
+    var x = document.getElementById("validation");
+    // Add the "show" class to DIV
+    x.className = "show";
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+      x.className = x.className.replace("show", "");
+    }, 3000);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let weightTypeSelected = true;
+
+    if (progress.weightType === "" || progress.weightType === "Weight") {
+      weightTypeSelected = false;
+    }
+    if (weightTypeSelected === false) {
+      showValidationSnackbar();
+    } else {
+
+      const newProgress = {
+        id: progress.id,
+        userId: progress.userId,
+        exerciseId: progress.exerciseId,
+        reps: progress.reps,
+        sets: progress.sets,
+        weight: progress.weight,
+        notes: progress?.notes,
+        weightType: progress.weightType,
+        dateCompleted: progress.dateCompleted,
+      };
+      updateProgress(newProgress).then(
+        navigate(`/progress/details/${progress.exerciseId}`)
+      );
+    }
+    };
+    
   let finalDate = "";
   if (progress.dateCompleted) {
     finalDate = progress.dateCompleted.split("T")[0];
   }
 
   return (
-    <div className="progressList, coreComponent">
+    <form className="progressList, coreComponent" onSubmit={handleSubmit}>
+      <div id="validation">Please select weight type.</div>
       <div>
         <div className="backButton">
           <ArrowLeft
@@ -135,6 +156,7 @@ export const ProgressEdit = () => {
         ></Input>
         <Input
           type="date"
+          required
           defaultValue={finalDate}
           onChange={(event) => {
             const progressCopy = { ...progress };
@@ -143,10 +165,10 @@ export const ProgressEdit = () => {
           }}
         ></Input>
 
-        <button className="exerciseButton" onClick={handleSubmit}>
+        <button className="exerciseButton" type="submit">
           Save
         </button>
       </div>
-    </div>
+    </form>
   );
 };

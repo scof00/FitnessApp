@@ -19,11 +19,25 @@ export const ExerciseEdit = () => {
             setExercise(data)
         })
     },[])
+
+    const showValidationSnackbar = () => {
+
+    
+      var x = document.getElementById("validation");
+      
+      // Add the "show" class to DIV
+      x.className = "show";
+      
+      // After 3 seconds, remove the show class from DIV
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    }
   
     const handleSave = (event) => {
       event.preventDefault();
-      if (!exercise.muscleId) {
-        window.alert("Please select muscle group!");
+      if (!exercise.muscleId || exercise.muscleId === 0) {
+        showValidationSnackbar();
       } else if (!exercise.name) {
         window.alert("Please enter an exercise name!");
       } else {
@@ -40,7 +54,7 @@ export const ExerciseEdit = () => {
     };
   
     return (
-      <form className="coreComponent">
+      <form className="coreComponent" onSubmit={handleSave}>
         <div className="backButton">
         <ArrowLeft
           size={30}
@@ -88,7 +102,7 @@ export const ExerciseEdit = () => {
           ></Input>
         </fieldset>
         <fieldset>
-          <button onClick={handleSave} className="exerciseButton">Save</button>
+          <button type="submit" className="exerciseButton">Save</button>
         </fieldset>
       </form>
     );
