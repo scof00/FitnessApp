@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { GetBiometricsByUserId } from "../../Managers/BiometricManager";
 import { useNavigate } from "react-router-dom";
 import { PencilSquare } from "react-bootstrap-icons";
-import { Tooltip } from "reactstrap";
+import { Label, Table, Tooltip } from "reactstrap";
 
 export const UserProfile = ({ currentUser }) => {
   const [biometrics, setBiometrics] = useState({});
@@ -26,19 +26,22 @@ export const UserProfile = ({ currentUser }) => {
     setCalculatedHeight(cmToFeetInches(biometrics.height));
   }, [biometrics]);
 
+  let maleCalorie = 0;
+  let femaleCalorie = 0;
+
   const calorieCalculatorMale = () => {
     const step1 = 10 * biometrics.weight;
     const step2 = 6.25 * biometrics.height;
     const step3 = 5 * biometrics.age + 5;
     const step4 = step1 + step2 - step3;
-    console.log(step4);
+    maleCalorie = step4;
   };
   const calorieCalculatorFemale = () => {
     const step1 = 10 * biometrics.weight;
     const step2 = 6.25 * biometrics.height;
     const step3 = 5 * biometrics.age + 161;
     const step4 = step1 + step2 - step3;
-    console.log(step4);
+    femaleCalorie = step4;
   };
 
   calorieCalculatorMale();
@@ -94,7 +97,45 @@ export const UserProfile = ({ currentUser }) => {
             {calculatedWeight}lbs / {biometrics.weight}kgs
           </p>
         </div>
-        <div>Calculate Calories?</div>
+        <br />
+        <br/>
+        <Label><b>Recommended Daily Calories</b></Label>
+        <Table>
+          <thead>
+            <tr>
+              <th>Activity Level</th>
+              <th>Male</th>
+              <th>Female</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr className="table-info">
+                <th scope="row" className="activityLevel">Sedentary</th>
+                <td>{Math.round(maleCalorie * 1.2)}</td>
+                <td>{Math.round(femaleCalorie * 1.2)}</td>
+              </tr>
+              <tr className="table-danger" >
+                <th scope="row" className="activityLevel">Light</th>
+                <td>{Math.round(maleCalorie * 1.375)}</td>
+                <td>{Math.round(femaleCalorie * 1.375)}</td>
+              </tr>
+              <tr className="table-warning">
+                <th scope="row" className="activityLevel">Moderate</th>
+                <td>{Math.round(maleCalorie * 1.55)}</td>
+                <td>{Math.round(femaleCalorie * 1.55)}</td>
+              </tr>
+              <tr className="table-success">
+                <th scope="row" className="activityLevel">Very</th>
+                <td>{Math.round(maleCalorie * 1.725)}</td>
+                <td>{Math.round(femaleCalorie * 1.725)}</td>
+              </tr>
+              <tr className="table-primary">
+                <th scope="row" className="activityLevel">Extremely</th>
+                <td>{Math.round(maleCalorie * 1.9)}</td>
+                <td>{Math.round(femaleCalorie * 1.9)}</td>
+              </tr>
+            </tbody>
+        </Table>
       </div>
     );
   }

@@ -174,3 +174,7 @@
     visibility: visible;
     opacity: 1;
   }
+
+  .activityLevel{
+    text-align: left;
+  }
