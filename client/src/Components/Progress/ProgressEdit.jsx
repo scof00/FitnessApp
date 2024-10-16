@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
-import { Input, Label } from "reactstrap";
+import { Input, Label, Tooltip } from "reactstrap";
 import {
   GetProgressById,
   updateProgress,
@@ -10,6 +10,8 @@ import {
 export const ProgressEdit = () => {
   const [progress, setProgress] = useState({});
   const { progressId } = useParams();
+  const [toolTipOpen1, setToolTipOpen1] = useState(false);
+  const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,7 +71,16 @@ export const ProgressEdit = () => {
             onClick={(event) => {
               navigate(`/progress/details/${progress.exerciseId}`);
             }}
+            id="backTarget"
           />
+          <Tooltip
+          isOpen={toolTipOpen1}
+          target="backTarget"
+          toggle={toggle1}
+          placement="top"
+        >
+          Back
+        </Tooltip>
         </div>
         <div>
           Edit progress entry for: <b>{progress?.exercise?.name}</b> on{" "}

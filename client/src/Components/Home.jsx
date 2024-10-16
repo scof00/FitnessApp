@@ -32,7 +32,7 @@ export const Home = ({ currentUser }) => {
           <Link to="/workouts">
             <img className="homepageButton" src={WorkoutLogo}></img>
           </Link>
-          <img className="homepageButton" src={DietTrackerLogo}></img>
+          {/* <img className="homepageButton" src={DietTrackerLogo}></img> */}
           <Link to="/userprofile">
             <img className="homepageButton" src={BiometricsLogo}></img>
           </Link>

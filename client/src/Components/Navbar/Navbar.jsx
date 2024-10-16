@@ -57,10 +57,10 @@ export const Navbar = () => {
           <img className="navbarLogo" src={SleepTrackerLogo}></img>
           Sleep
         </button> */}
-        <button type="button" className="btn btn-primary">
+        {/* <button type="button" className="btn btn-primary">
           <img className="navbarLogo" src={DietTrackerLogo}></img>
           Diet
-        </button>
+        </button> */}
         <Link to="userprofile" className={isActive('/userprofile') ? 'active' : ''}>
           <button type="button" className="btn btn-primary">
             <img className="navbarLogo" src={BiometricsLogo}></img>

@@ -16,12 +16,21 @@ import {
   Trash,
 } from "react-bootstrap-icons";
 import { Accordion } from "react-bootstrap";
+import { Tooltip } from "reactstrap";
 
 export const ProgressDetails = () => {
   const { exerciseId } = useParams();
   const [progress, setProgress] = useState([]);
   const [ascendingProgress, setAscendingProgress] = useState([]);
   const [exercise, setExercise] = useState({});
+  const [toolTipOpen1, setToolTipOpen1] = useState(false);
+  const [toolTipOpen2, setToolTipOpen2] = useState(false);
+  const [toolTipOpen3, setToolTipOpen3] = useState(false);
+  const [toolTipOpen4, setToolTipOpen4] = useState(false);
+  const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
+  const toggle2 = () => setToolTipOpen2(!toolTipOpen2);
+  const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
+  const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,13 +91,31 @@ export const ProgressDetails = () => {
           onClick={(event) => {
             navigate("/exercises");
           }}
+          id="backTarget"
         />
+        <Tooltip
+          isOpen={toolTipOpen1}
+          target="backTarget"
+          toggle={toggle1}
+          placement="top"
+        >
+          Back
+        </Tooltip>
         <PlusSquare
           size={30}
           onClick={(event) => {
             navigate(`/progress/create/${exercise.id}`);
           }}
+          id="addTarget"
         />
+        <Tooltip
+          isOpen={toolTipOpen4}
+          target="addTarget"
+          toggle={toggle4}
+          placement="top"
+        >
+          Add Progress Update
+        </Tooltip>
       </div>
       <h2>{exercise.name}</h2>
       <Line data={data} options={options} width={"60vw"} height={"60vw"} />
@@ -119,11 +146,29 @@ export const ProgressDetails = () => {
                 <PencilSquare
                   size={20}
                   onClick={(event) => navigate(`/progress/edit/${p.id}`)}
+                  id="editTarget"
                 />
+                <Tooltip
+                  isOpen={toolTipOpen2}
+                  target="editTarget" // Tooltip target matches the Play icon id
+                  toggle={toggle2}
+                  placement="top" // You can adjust placement as needed
+                >
+                  Edit
+                </Tooltip>
                 <Trash
                   size={20}
                   onClick={(event) => navigate(`/progress/delete/${p.id}`)}
+                  id="deleteTarget"
                 />
+                <Tooltip
+                  isOpen={toolTipOpen3}
+                  target="deleteTarget" // Tooltip target matches the Play icon id
+                  toggle={toggle3}
+                  placement="top" // You can adjust placement as needed
+                >
+                  Delete
+                </Tooltip>
               </Accordion.Body>
             </Accordion.Item>
           );

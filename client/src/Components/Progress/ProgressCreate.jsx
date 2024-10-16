@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Input, Label } from "reactstrap";
+import { Input, Label, Tooltip } from "reactstrap";
 import { GetExerciseById } from "../../Managers/ExerciseManager";
 import { CreateProgress } from "../../Managers/ProgressManager";
 import { ArrowLeft, ArrowLeftSquare } from "react-bootstrap-icons";
@@ -9,6 +9,8 @@ export const ProgressCreate = ({ currentUser }) => {
   const { exerciseId } = useParams();
   const [exercise, setExercise] = useState({});
   const [progress, setProgress] = useState({ weightType: "" });
+  const [toolTipOpen1, setToolTipOpen1] = useState(false);
+  const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const navigate = useNavigate();
 
   useState(() => {
@@ -61,7 +63,16 @@ export const ProgressCreate = ({ currentUser }) => {
           onClick={(event) => {
             navigate(`/progress/details/${exerciseId}`);
           }}
+          id="backTarget"
         />
+        <Tooltip
+          isOpen={toolTipOpen1}
+          target="backTarget"
+          toggle={toggle1}
+          placement="top"
+        >
+          Back
+        </Tooltip>
       </div>
       <div>
         Add a progress update for: <b>{exercise.name}</b>
