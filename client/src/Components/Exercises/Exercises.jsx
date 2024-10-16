@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getMuscles } from "../../Managers/MuscleManager";
 import { Accordion } from "react-bootstrap";
-import { GetExerciseByUserId } from "../../Managers/ExerciseManager";
+import { deleteExercise, GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Eye,
@@ -11,29 +11,53 @@ import {
   PlusSquare,
   Trash,
 } from "react-bootstrap-icons";
-import { Tooltip } from "reactstrap";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Tooltip,
+} from "reactstrap";
+import { DeleteByExerciseId } from "../../Managers/ProgressManager";
+import { DeleteWorkoutExerciseByExerciseId } from "../../Managers/WorkoutExerciseManager";
 
 export const Exercises = ({ currentUser }) => {
   const [muscles, setMuscles] = useState([]);
   const [exercises, setExercises] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState(null);
   const [toolTipOpen1, setToolTipOpen1] = useState(false);
   const [toolTipOpen2, setToolTipOpen2] = useState(false);
   const [toolTipOpen3, setToolTipOpen3] = useState(false);
   const [toolTipOpen4, setToolTipOpen4] = useState(false);
+  const user = currentUser;
   const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const toggle2 = () => setToolTipOpen2(!toolTipOpen2);
   const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
   const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
-  const user = currentUser;
   const navigate = useNavigate();
+  const toggle = () => setModal(!modal);
 
   useEffect(() => {
     getMuscles().then((data) => setMuscles(data));
   }, []);
+  const settingExercises = () => {
+    
+    useEffect(() => {
+      GetExerciseByUserId(currentUser.id).then((data) => setExercises(data));
+    }, []);
+  }
+  settingExercises();
 
-  useEffect(() => {
-    GetExerciseByUserId(currentUser.id).then((data) => setExercises(data));
-  }, [user]);
+  const handleDeleteClick = (exercise) => {
+    setSelectedExercise(exercise); // Set the clicked exercise
+    setModal(true); // Open the modal
+  };
+
+  const handleDelete = (id) => {
+    DeleteByExerciseId(id).then(DeleteWorkoutExerciseByExerciseId(id)).then(deleteExercise(id)).then(toggle).then(setExercises(prev => prev.filter(item => item.id !== id)));
+  }
 
   return (
     <div className="coreComponent">
@@ -47,9 +71,9 @@ export const Exercises = ({ currentUser }) => {
         />
         <Tooltip
           isOpen={toolTipOpen4}
-          target="addTarget" 
+          target="addTarget"
           toggle={toggle4}
-          placement="top" 
+          placement="top"
         >
           Add Exercise
         </Tooltip>
@@ -102,7 +126,7 @@ export const Exercises = ({ currentUser }) => {
                               size={20}
                               id="deleteTarget"
                               className="exerciseIcons"
-                              onClick={(event) => navigate(`delete/${e.id}`)}
+                              onClick={() => handleDeleteClick(e)}
                             />
                             <Tooltip
                               isOpen={toolTipOpen3}
@@ -112,6 +136,7 @@ export const Exercises = ({ currentUser }) => {
                             >
                               Delete
                             </Tooltip>
+                            
                           </div>
                         </div>
                       </Accordion.Body>
@@ -122,6 +147,23 @@ export const Exercises = ({ currentUser }) => {
           );
         })}
       </Accordion>
+      {selectedExercise && (
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Delete Exercise</ModalHeader>
+          <ModalBody>
+            Are you sure you want to delete: <b>{selectedExercise.name}</b>?
+            <br />
+            Doing so will remove it from all workout playlists and delete your
+            progress forever. This <b>CANNOT</b> be undone.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={(e)=> {e.stopPropagation() ; handleDelete(selectedExercise.id)}}>Delete</Button>{" "}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      )}
     </div>
   );
 };

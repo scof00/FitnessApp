@@ -62,6 +62,7 @@ export const Login = ({setIsLoggedIn}) => {
 
   return (
     <form className="loginForm">
+      <h1>trAIner</h1>
       <div id="invalidLogin">Invalid username or password.</div>
       <fieldset>
         <FormGroup>

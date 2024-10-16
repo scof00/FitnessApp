@@ -159,7 +159,6 @@ namespace FitnessApp.Repositories
                 {
                     cmd.CommandText = "DELETE FROM Exercises WHERE Id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
-
                     cmd.ExecuteNonQuery();
                 }
             }
