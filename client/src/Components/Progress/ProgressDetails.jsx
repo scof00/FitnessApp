@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  DeleteProgress,
   GetProgressByExerciseId,
   GetProgressByExerciseIdAsc,
 } from "../../Managers/ProgressManager";
@@ -16,7 +17,7 @@ import {
   Trash,
 } from "react-bootstrap-icons";
 import { Accordion } from "react-bootstrap";
-import { Tooltip } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Tooltip } from "reactstrap";
 
 export const ProgressDetails = () => {
   const { exerciseId } = useParams();
@@ -27,10 +28,13 @@ export const ProgressDetails = () => {
   const [toolTipOpen2, setToolTipOpen2] = useState(false);
   const [toolTipOpen3, setToolTipOpen3] = useState(false);
   const [toolTipOpen4, setToolTipOpen4] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [selectedProgress, setSelectedProgress] = useState(null);
   const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const toggle2 = () => setToolTipOpen2(!toolTipOpen2);
   const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
   const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
+  const toggle = () => setModal(!modal);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,6 +87,14 @@ export const ProgressDetails = () => {
       },
     },
   };
+
+  const handleDeleteClick = (exercise) => {
+    setSelectedProgress(exercise); // Set the clicked exercise
+    setModal(true); // Open the modal
+  };
+  const handleDelete = (id) => {
+    DeleteProgress(id).then(toggle).then(setProgress(prev => prev.filter(item => item.id !== id)));
+  }
   return (
     <div className="progressList, coreComponent">
       <div className="topButtons">
@@ -158,7 +170,7 @@ export const ProgressDetails = () => {
                 </Tooltip>
                 <Trash
                   size={20}
-                  onClick={(event) => navigate(`/progress/delete/${p.id}`)}
+                  onClick={() => handleDeleteClick(p)}
                   id="deleteTarget"
                 />
                 <Tooltip
@@ -174,6 +186,23 @@ export const ProgressDetails = () => {
           );
         })}
       </Accordion>
+      {selectedProgress && (
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Delete Progress Entry</ModalHeader>
+          <ModalBody>
+            Are you sure you want to delete: <b>{selectedProgress.exercise.name}</b> entry from <b>{selectedProgress.dateCompleted}?</b>
+            <br></br>
+            <br></br>
+            Doing so will remove it permanently from your log. This <b>CANNOT</b> be undone.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={(e)=> {e.stopPropagation() ; handleDelete(selectedProgress.id)}}>Delete</Button>{" "}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      )}
     </div>
   );
 };

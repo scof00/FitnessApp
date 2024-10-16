@@ -29,7 +29,9 @@ export const WorkoutInProgress = ({ currentUser }) => {
   const [usingRecommendation, setUsingRecommendation] = useState(false);
   const [recommendationData, setRecommendationData] = useState([]);
   const navigate = useNavigate();
+  const [exitModal, setExitModal] = useState(false);
   const toggle = () => setModal(!modal);
+  const toggleExit = () => setExitModal(!exitModal);
 
   useEffect(() => {
     GetWorkoutById(workoutId).then((data) => setWorkout(data));
@@ -183,7 +185,7 @@ export const WorkoutInProgress = ({ currentUser }) => {
     <form className="workoutInProgress, coreComponent" onSubmit={handleSubmit}>
       <div id="validation">Please select weight type.</div>
       <div className="backButton">
-        <ArrowLeft size={30} onClick={alert} />
+        <ArrowLeft size={30} onClick={toggleExit} />
       </div>
       <h2>
         <u>{workout.name}</u>
@@ -247,6 +249,21 @@ export const WorkoutInProgress = ({ currentUser }) => {
           </div>
         );
       })}
+      <Modal isOpen={exitModal} toggle={toggleExit}>
+          <ModalHeader toggle={toggleExit}>Are you sure you want to leave?</ModalHeader>
+          <ModalBody>
+            Your progress will not be saved and you will have to restart your workout.
+            <br />
+            <br />
+            Click "Leave" to return to workouts or "Cancel" to stay here.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={() => navigate("/workouts")}>Leave</Button>{" "}
+            <Button color="secondary" onClick={toggleExit}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
 
       <button className="exerciseButton" type="submit">
         Finish Workout

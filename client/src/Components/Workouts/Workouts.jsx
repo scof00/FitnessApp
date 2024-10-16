@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { GetWorkoutsByUserId } from "../../Managers/WorkoutManager";
+import { DeleteWorkout, GetWorkoutsByUserId } from "../../Managers/WorkoutManager";
 import { Accordion, AccordionItem } from "react-bootstrap";
 import "./Workout.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
+  DeleteByWorkoutId,
   getExerciseByWorkoutId,
   getWorkoutExercise,
 } from "../../Managers/WorkoutExerciseManager";
@@ -15,7 +16,7 @@ import {
   Trash,
   X,
 } from "react-bootstrap-icons";
-import { Tooltip } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Tooltip } from "reactstrap";
 
 export const Workouts = ({ currentUser }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -28,7 +29,10 @@ export const Workouts = ({ currentUser }) => {
   const toggle2 = () => setToolTipOpen2(!toolTipOpen2);
   const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
   const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
-  // const [workoutIdOverlay, setWorkoutIdOverlay] = useState();
+  const [modal, setModal] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const toggle = () => setModal(!modal);
+  
 
   const navigate = useNavigate();
 
@@ -43,22 +47,15 @@ export const Workouts = ({ currentUser }) => {
     getWorkoutExercise().then((data) => setWorkoutExercises(data));
   }, []);
 
-  // code for overlay that I realized I don't need
-  // const open = (id) => {
-  //   setWorkoutIdOverlay(id);
-  //   document.getElementById("overlay").style.width = "85vw";
-  //   document.getElementById("overlay").style.height = "100vh";
-  // };
+  const handleDeleteClick = (workout) => {
+    setSelectedWorkout(workout); // Set the clicked exercise
+    setModal(true); // Open the modal
+  };
 
-  // const close = () => {
-  //   document.getElementById("overlay").style.width = "0vw";
-  //   document.getElementById("secondaryOverlay").style.width = "0vw";
-  // };
-
-  // const openSecondary = () => {
-  //   document.getElementById("secondaryOverlay").style.width = "85vw";
-  //   document.getElementById("secondaryOverlay").style.height = "40vh";
-  // };
+  const handleDelete = (id) => {
+    DeleteByWorkoutId(id).then(
+      DeleteWorkout(id)).then(toggle).then(setWorkouts(prev => prev.filter(item => item.id !== id)))
+  };
 
   return (
     <div className="coreComponent">
@@ -79,31 +76,7 @@ export const Workouts = ({ currentUser }) => {
           Add Workout
         </Tooltip>
       </div>
-      {/* <div className="overlay" id="overlay">
-        <div className="xButton">
-          <X size={30} onClick={close} />
-        </div>
-        <div className="overlay-content">
-          Would you like to use recommendations?
-          <div>
-            <button className="exerciseButton" onClick={openSecondary}>
-              Yes
-            </button>
-            <button
-              className="exerciseButton"
-              onClick={(event) => {
-                event.stopPropagation();
-                navigate(`inprogress/${workoutIdOverlay}`);
-              }}
-            >
-              No
-            </button>
-          </div>
-        </div>
-        <div className="overlay" id="secondaryOverlay">
-          <div className="secondary-overlay-content">secondary</div>
-        </div>
-      </div> */}
+      
       <h2>Your Workouts</h2>
       <Accordion
         defaultActiveKey="0"
@@ -158,7 +131,7 @@ export const Workouts = ({ currentUser }) => {
                       size={25}
                       onClick={(event) => {
                         event.stopPropagation();
-                        navigate(`delete/${workout.id}`);
+                        handleDeleteClick(workout);
                       }}
                       id="workoutDelete"
                     />
@@ -177,6 +150,23 @@ export const Workouts = ({ currentUser }) => {
           );
         })}
       </Accordion>
+      {selectedWorkout && (
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>Delete Workout</ModalHeader>
+          <ModalBody>
+            Are you sure you want to delete: <b>{selectedWorkout.name}</b>?
+            <br />
+            <br />
+            Doing so will remove it permanently. This <b>CANNOT</b> be undone.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={(e)=> {e.stopPropagation() ; handleDelete(selectedWorkout.id)}}>Delete</Button>{" "}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      )}
     </div>
   );
 };

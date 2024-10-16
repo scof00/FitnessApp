@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { GetBiometricsByUserId } from "../../Managers/BiometricManager";
 import { useNavigate } from "react-router-dom";
 import { PencilSquare } from "react-bootstrap-icons";
+import { Tooltip } from "reactstrap";
 
 export const UserProfile = ({ currentUser }) => {
   const [biometrics, setBiometrics] = useState({});
   const [calculatedWeight, setCalculatedWeight] = useState(0);
   const [calculatedHeight, setCalculatedHeight] = useState("");
+  const [toolTipOpen1, setToolTipOpen1] = useState(false);
+  const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,22 +27,22 @@ export const UserProfile = ({ currentUser }) => {
   }, [biometrics]);
 
   const calorieCalculatorMale = () => {
-    const step1 = 10 * biometrics.weight
-    const step2 = 6.25 * biometrics.height
-    const step3 = 5*biometrics.age +5
-    const step4 = step1 + step2 - step3
-    console.log(step4)
-  }
+    const step1 = 10 * biometrics.weight;
+    const step2 = 6.25 * biometrics.height;
+    const step3 = 5 * biometrics.age + 5;
+    const step4 = step1 + step2 - step3;
+    console.log(step4);
+  };
   const calorieCalculatorFemale = () => {
-    const step1 = 10 * biometrics.weight
-    const step2 = 6.25 * biometrics.height
-    const step3 = 5*biometrics.age +161
-    const step4 = step1 + step2 - step3
-    console.log(step4)
-  }
+    const step1 = 10 * biometrics.weight;
+    const step2 = 6.25 * biometrics.height;
+    const step3 = 5 * biometrics.age + 161;
+    const step4 = step1 + step2 - step3;
+    console.log(step4);
+  };
 
-  calorieCalculatorMale()
-  calorieCalculatorFemale()
+  calorieCalculatorMale();
+  calorieCalculatorFemale();
 
   if (!biometrics.id) {
     return (
@@ -61,8 +64,17 @@ export const UserProfile = ({ currentUser }) => {
         <div className="topButtonRight">
           <PencilSquare
             size={20}
+            id="editTarget"
             onClick={(event) => navigate(`/userprofile/${biometrics.id}`)}
           ></PencilSquare>
+          <Tooltip
+            isOpen={toolTipOpen1}
+            target="editTarget" // Tooltip target matches the Play icon id
+            toggle={toggle1}
+            placement="top" // You can adjust placement as needed
+          >
+            Edit
+          </Tooltip>
         </div>
         <div>
           <b>{currentUser.username}</b>
@@ -82,9 +94,7 @@ export const UserProfile = ({ currentUser }) => {
             {calculatedWeight}lbs / {biometrics.weight}kgs
           </p>
         </div>
-        <div>
-            Calculate Calories?
-        </div>
+        <div>Calculate Calories?</div>
       </div>
     );
   }

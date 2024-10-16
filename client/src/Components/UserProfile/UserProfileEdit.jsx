@@ -5,10 +5,12 @@ import {
   GetBiometricsByUserId,
   updateBiometrics,
 } from "../../Managers/BiometricManager";
-import { Input, Label } from "reactstrap";
+import { Input, Label, Tooltip } from "reactstrap";
 
 export const BiometricsEdit = ({ currentUser }) => {
   const [biometrics, setBiometrics] = useState({});
+  const [toolTipOpen1, setToolTipOpen1] = useState(false);
+  const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const navigate = useNavigate();
   const user = currentUser;
   useEffect(() => {
@@ -343,10 +345,19 @@ export const BiometricsEdit = ({ currentUser }) => {
       <div className="backButton">
         <ArrowLeft
           size={30}
+          id="backTarget"
           onClick={(event) => {
             navigate(`/userprofile`);
           }}
         />
+        <Tooltip
+            isOpen={toolTipOpen1}
+            target="backTarget" // Tooltip target matches the Play icon id
+            toggle={toggle1}
+            placement="top" // You can adjust placement as needed
+          >
+            Back
+          </Tooltip>
       </div>
       <Label>Age:</Label>
       <Input

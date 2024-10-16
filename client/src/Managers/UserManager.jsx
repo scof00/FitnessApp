@@ -26,6 +26,10 @@ export const CreateUser = async (u) => {
             "Content-Type":"application/json"
         },
         body: JSON.stringify(u)
+    }).then((res) => {
+        return res.json()
+    }).then((user) => {
+        return user.id
     })
 }
 
