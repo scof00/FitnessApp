@@ -1,0 +1,39 @@
+.progressList{
+    width: 60vw;
+    margin-top: 10vh;
+    margin-right: 5vw;
+}
+.progressInput{
+    width: 24vw;
+}
+.progressDisplay{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border: 2px solid #c0c8ca;
+    border-radius: 3%;
+    margin-bottom: 1vw;
+    padding: 5px;
+}
+.progressChild{
+    display: flex;
+}
+
+.topButtons{
+    width: 60vw;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5vw;
+}
+
+.backButton{
+    text-align: left;
+    margin-bottom: 5%;
+}
+
+.topButtonRight{
+    width: 60vw;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5vw;
+}

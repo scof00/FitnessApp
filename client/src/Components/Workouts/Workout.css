@@ -1,0 +1,180 @@
+.accordionItem {
+    border-color: #61D5EE;
+    border-width: 2px;
+    width: 60vw;
+}
+
+.accordion {
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+}
+
+.workoutCreateForm {
+    width: 60vw;
+}
+
+.progressInput {
+    width: 30vw;
+    margin: 1vw;
+    
+}
+.workoutExercise{
+    margin: 5%;
+}
+
+.workoutInProgress {
+    width: 60vw;
+}
+.recommendationsButton{
+    color: black;
+    border: #61D5EE solid;
+}
+
+.progressInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.progressLine{
+    display: flex;
+    flex-direction: row;
+}
+
+.notesInput {
+    margin: 1vw;
+}
+
+.main {
+    width: 60vw;
+}
+
+.workoutLabel{
+    align-self: start;
+    margin: 0;
+}
+
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 0vh;
+    width: 0vw;
+    position: fixed;
+    z-index: 1;
+    /* Sit on top */
+    right: 0;
+    top: 0;
+    background-color: rgb(255, 251, 251);
+    /* Black fallback color */
+    background-color: rgba(255, 255, 255, 1);
+    /* Black w/opacity */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+.holdsOverlay {
+    padding: 3%;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    /* 25% from the top */
+    width: 100%;
+    /* 100% width */
+    text-align: center;
+    /* Centered text/links */
+    color: black;
+    margin-top: 0;
+    /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+#secondaryOverlay {
+
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 0vh;
+    width: 0vw;
+    position: fixed;
+    z-index: 1;
+    /* Sit on top */
+    right: 0;
+    bottom: 0;
+    align-self: flex-end;
+    background-color: rgb(255, 251, 251);
+    /* Black fallback color */
+    background-color: rgba(255, 255, 255, 1);
+    /* Black w/opacity */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+
+}
+
+.xButton {
+    text-align: right;
+    margin-top: 5%;
+    margin-right: 5%;
+}
+.homepageLogo{
+    width: 60vw;
+    max-height: 400px;
+}
+.homepageButton{
+    width: 10vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    max-height: 70px;
+    border: 1px black solid;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.homeGraphics{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20vh;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .activityLevel{
+    text-align: left;
+  }

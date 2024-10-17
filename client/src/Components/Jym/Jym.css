@@ -1,0 +1,65 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    width: 85vw;
+  }
+  
+  .messages-container {
+    flex: 1; /* Allow this to take up remaining space */
+    overflow-y: auto; /* Enable scrolling for message overflow */
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .message {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%; /* Prevent messages from being too wide */
+  }
+  
+  .user {
+    align-self: flex-end; /* Align user's messages to the right */
+    background-color: #0084ff; /* User message background color */
+    color: white;
+  }
+  
+  .assistant {
+    align-self: flex-start; /* Align assistant's messages to the left */
+    background-color: #e0e0e0; /* Assistant message background color */
+    color: black;
+  }
+  
+  .input-container {
+    display: flex;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ccc;
+  }
+  
+  textarea {
+    flex: 1; /* Allow the textarea to expand */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* Prevent resizing */
+  }
+  .specialButton{
+    margin: 1%;
+  }
+  /* button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #0084ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background-color: #ccc; /* Disabled button style */
+
+  

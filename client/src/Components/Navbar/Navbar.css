@@ -1,0 +1,74 @@
+.navbar{
+    display: flex;
+    flex-direction: column;
+    background-color:#61D5EE ;
+    width: 15vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#root{
+    margin-right: 0vw;
+    height: 100vh;
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+.navButton{
+    height: 50px;
+    width: 50px;
+    background-color: #61D5EE;
+    border-radius: 10px;
+    border: none;
+    font-size: 10px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+}
+.btn-primary{
+    height: 50px;
+    width: 50px;
+    background-color: white !important;
+    border-radius: 10px;
+    border: none;
+    font-size: 10px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbarLogo{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.coreComponent{
+    width: 60vw;
+    margin-top: 5vh;
+    margin-right: 12vw;
+    height: 100vh;
+}
+
+.active {
+    background-color: grey !important; /* Grey out the active button */
+    pointer-events: none; /* Disable interaction */
+    opacity: 0.7; /* Slight opacity for a greyed-out effect */
+  }
