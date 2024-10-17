@@ -77,8 +77,13 @@ export const WorkoutInProgress = ({ currentUser }) => {
     event.preventDefault();
     let weightTypeSelected = true
     exerciseProgress.some((p) => {
-      
-      if(!p.weightType || p.weightType === "Weight" || p.weightType === undefined){
+      if(p.exerciseId === undefined){
+        const progressCopy = [...exerciseProgress]
+        const indexToDelete = progressCopy.indexOf(p)
+        progressCopy.splice(indexToDelete,1)
+        setExerciseProgress(progressCopy)
+
+      } else if(!p.weightType || p.weightType === "Weight" || p.weightType === undefined){
         weightTypeSelected = false
       }
     })
