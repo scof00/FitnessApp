@@ -11,6 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "reactstrap";
+import { Accordion } from "react-bootstrap";
 import {
   CreateProgress,
   GetLatestByExerciseId,
@@ -60,57 +61,56 @@ export const WorkoutInProgress = ({ currentUser }) => {
   }, [workoutExercises]);
 
   const showValidationSnackbar = () => {
-
-    
     var x = document.getElementById("validation");
-    
+
     // Add the "show" class to DIV
     x.className = "show";
-    
+
     // After 3 seconds, remove the show class from DIV
     setTimeout(function () {
       x.className = x.className.replace("show", "");
     }, 3000);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let weightTypeSelected = true
+    let weightTypeSelected = true;
     exerciseProgress.some((p) => {
-      if(p.exerciseId === undefined){
-        const progressCopy = [...exerciseProgress]
-        const indexToDelete = progressCopy.indexOf(p)
-        progressCopy.splice(indexToDelete,1)
-        setExerciseProgress(progressCopy)
-
-      } else if(!p.weightType || p.weightType === "Weight" || p.weightType === undefined){
-        weightTypeSelected = false
+      if (p.exerciseId === undefined) {
+        const progressCopy = [...exerciseProgress];
+        const indexToDelete = progressCopy.indexOf(p);
+        progressCopy.splice(indexToDelete, 1);
+        setExerciseProgress(progressCopy);
+      } else if (
+        !p.weightType ||
+        p.weightType === "Weight" ||
+        p.weightType === undefined
+      ) {
+        weightTypeSelected = false;
       }
-    })
+    });
 
-      if(weightTypeSelected === false){
-        showValidationSnackbar();
-
-      } else {
-        
-        {exerciseProgress.map((ep) => {
-            const newProgress = {
-              userId: currentUser.id,
-              exerciseId: ep.exerciseId,
-              reps: ep.reps,
-              sets: ep.sets,
-              weight: ep.weight,
-              notes: ep?.notes,
-              weightType: ep.weightType,
-              dateCompleted: new Date(),
-            };
-            CreateProgress(newProgress);
-          });
-        }
-        navigate("/home");
+    if (weightTypeSelected === false) {
+      showValidationSnackbar();
+    } else {
+      {
+        exerciseProgress.map((ep) => {
+          const newProgress = {
+            userId: currentUser.id,
+            exerciseId: ep.exerciseId,
+            reps: ep.reps,
+            sets: ep.sets,
+            weight: ep.weight,
+            notes: ep?.notes,
+            weightType: ep.weightType,
+            dateCompleted: new Date(),
+          };
+          CreateProgress(newProgress);
+        });
       }
-
-      
+      navigate("/home", { state: { message: "Progress saved." } })
+       
+    }
   };
 
   const alert = (event) => {
@@ -131,25 +131,24 @@ export const WorkoutInProgress = ({ currentUser }) => {
     lastProgress.map((lp) => {
       let step1 = 37 - lp.reps;
       let step2 = 36 / step1;
-      let step3 = Math.round(lp.weight * step2);
+      let step3 = lp.weight * step2;
       repMax = step3;
       if (type === 1) {
-        const finalWeight = repMax * 0.9;
+        const finalWeight = Math.round(repMax * 0.9);
         const recommendation = {
           weight: finalWeight,
           reps: 4,
           sets: 6,
           exerciseId: lp.exerciseId,
         };
-        setUsingRecommendation(true)
+        setUsingRecommendation(true);
         recommendations.push(recommendation);
-        setExerciseProgress(recommendations)
+        setExerciseProgress(recommendations);
         setRecommendationData(recommendations);
-        
-        
+
         toggle();
       } else if (type === 2) {
-        const finalWeight = repMax * 0.75;
+        const finalWeight = Math.round(repMax * 0.75);
         const recommendation = {
           weight: finalWeight,
           reps: 10,
@@ -157,13 +156,13 @@ export const WorkoutInProgress = ({ currentUser }) => {
           exerciseId: lp.exerciseId,
         };
         recommendations.push(recommendation);
-      
-        setUsingRecommendation(true)
-        setExerciseProgress(recommendations)
+
+        setUsingRecommendation(true);
+        setExerciseProgress(recommendations);
         setRecommendationData(recommendations);
         toggle();
       } else if (type === 3) {
-        const finalWeight = repMax * 0.5;
+        const finalWeight = Math.round(repMax * 0.5);
         const recommendation = {
           weight: finalWeight,
           reps: 15,
@@ -171,11 +170,11 @@ export const WorkoutInProgress = ({ currentUser }) => {
           exerciseId: lp.exerciseId,
         };
         recommendations.push(recommendation);
-        setUsingRecommendation(true)
-       
-        setExerciseProgress(recommendations)
+        setUsingRecommendation(true);
+
+        setExerciseProgress(recommendations);
         setRecommendationData(recommendations);
-        
+
         toggle();
       }
     });
@@ -221,7 +220,12 @@ export const WorkoutInProgress = ({ currentUser }) => {
           improve your endurance!
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={()=> {formula(1)}}>
+          <Button
+            color="danger"
+            onClick={() => {
+              formula(1);
+            }}
+          >
             Strength
           </Button>{" "}
           <Button color="warning" onClick={() => formula(2)}>
@@ -239,36 +243,54 @@ export const WorkoutInProgress = ({ currentUser }) => {
         return (
           <div className="workoutExercise">
             {usingRecommendation ? (
-              <WorkoutRecommendation we={we}
-              exerciseProgress={exerciseProgress}
-              setExerciseProgress={setExerciseProgress}
-              recommendationData={recommendationData}
-              />
+              <Accordion
+                defaultActiveKey="0"
+                className="workoutInProgressAccordion"
+                onClick={() => close}
+              >
+                <WorkoutRecommendation
+                  we={we}
+                  exerciseProgress={exerciseProgress}
+                  setExerciseProgress={setExerciseProgress}
+                  recommendationData={recommendationData}
+                />
+              </Accordion>
             ) : (
-              <WithoutRecommendation
-                we={we}
-                exerciseProgress={exerciseProgress}
-                setExerciseProgress={setExerciseProgress}
-              />
+              <Accordion
+                defaultActiveKey="0"
+                className="workoutInProgressAccordion"
+                onClick={() => close}
+              >
+                <WithoutRecommendation
+                  we={we}
+                  exerciseProgress={exerciseProgress}
+                  setExerciseProgress={setExerciseProgress}
+                />
+              </Accordion>
             )}
           </div>
         );
       })}
       <Modal isOpen={exitModal} toggle={toggleExit}>
-          <ModalHeader toggle={toggleExit}>Are you sure you want to leave?</ModalHeader>
-          <ModalBody>
-            Your progress will not be saved and you will have to restart your workout.
-            <br />
-            <br />
-            Click "Leave" to return to workouts or "Cancel" to stay here.
-          </ModalBody>
-          <ModalFooter>
-            <Button color="danger" onClick={() => navigate("/workouts")}>Leave</Button>{" "}
-            <Button color="secondary" onClick={toggleExit}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <ModalHeader toggle={toggleExit}>
+          Are you sure you want to leave?
+        </ModalHeader>
+        <ModalBody>
+          Your progress will not be saved and you will have to restart your
+          workout.
+          <br />
+          <br />
+          Click "Leave" to return to workouts or "Cancel" to stay here.
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={() => navigate("/workouts")}>
+            Leave
+          </Button>{" "}
+          <Button color="secondary" onClick={toggleExit}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
 
       <button className="exerciseButton" type="submit">
         Finish Workout

@@ -89,7 +89,7 @@ export const Workouts = ({ currentUser }) => {
               <Accordion.Header>{workout.name}</Accordion.Header>
               {workoutExercises.map((we) => {
                 if (we.workoutId === workout.id) {
-                  return <Accordion.Body>{we.exerciseName}</Accordion.Body>;
+                  return <Accordion.Body className="workoutExercises">• {we.exerciseName}</Accordion.Body>;
                 }
               })}
               <Accordion.Body className="holdsOverlay">
