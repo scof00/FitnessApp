@@ -213,9 +213,18 @@ export const Jym = ({ currentUser }) => {
       if (data.choices && data.choices.length > 0) {
         // Add ChatGPT's response to the message thread
         const chatGptMessage = data.choices[0]?.message?.content?.trim();
+        const parsedResponse = JSON.parse(chatGptMessage); // Parse the response as JSON
+      const workoutName = parsedResponse.workout_name;
+      const exercises = parsedResponse.exercises;
+      let finalDisplayString = `Workout: ${workoutName}.`
+       exercises.forEach(e => {
+        finalDisplayString +=` Exercise: ${e.name}, Sets: ${e.sets}, Repetitions: ${e.reps}, Weight: ${e.weight}.`
+      })
+      console.log(exercises)
+      finalDisplayString +=` Would you like me to create this workout for you? Confirm by typing: Create this Workout`
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: chatGptMessage },
+          { role: "assistant", content: finalDisplayString},
         ]);
         
         // Extract workout details from ChatGPT response
