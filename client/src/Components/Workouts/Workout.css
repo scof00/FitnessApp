@@ -19,7 +19,7 @@
     
 }
 .workoutExercise{
-    margin: 5%;
+    margin-top: 5%;
 }
 
 .workoutInProgress {
@@ -119,15 +119,18 @@
 .homepageLogo{
     width: 60vw;
     max-height: 400px;
+    border-bottom: 1px black solid;
+    border-radius: 10px;
 }
 .homepageButton{
     width: 10vw;
     margin-left: 2vw;
     margin-right: 2vw;
     max-height: 70px;
-    border: 1px black solid;
+    border-bottom: 1px black solid;
     border-radius: 10px;
     padding: 2px;
+    margin-bottom: 2vh;
 }
 
 .homeGraphics{
@@ -177,4 +180,42 @@
 
   .activityLevel{
     text-align: left;
+  }
+  .workoutExercises{
+    text-align: left;
+  }
+
+  .homePage{
+    width: 60vw;
+    margin-top: 0vh;
+    margin-right: 12vw;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+  .workoutInProgressAccordion{
+    width: 60vw;
+  }
+
+  #savedProgress{
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+  }
+  
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #savedProgress.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
   }

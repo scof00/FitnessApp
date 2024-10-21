@@ -1,7 +1,10 @@
 .loginForm{
     width: 60vw;
-    margin-top: 10vh;
+    margin-top: 20vh;
     margin-right: 19vw;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */

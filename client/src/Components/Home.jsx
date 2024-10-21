@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TrainerLogo from "../assets/muscle-up-svgrepo-com.svg";
 import WorkoutLogo from "../assets/workout-list-svgrepo-com.svg";
 import ExerciseLogo from "../assets/workout-svgrepo-com.svg";
 import BiometricsLogo from "../assets/health-svgrepo-com.svg";
 import DietTrackerLogo from "../assets/food-dish-svgrepo-com.svg";
 import { GraphUp } from "react-bootstrap-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tooltip } from "reactstrap";
 
 export const Home = ({ currentUser }) => {
@@ -19,8 +19,25 @@ export const Home = ({ currentUser }) => {
   const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
   const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if the location state contains a message
+    if (location.state && location.state.message) {
+      // Display the snackbar
+      const snackbar = document.getElementById("savedProgress");
+      snackbar.className = "show"; // Add the "show" class to display the snackbar
+
+      // Hide the snackbar after 3 seconds
+      setTimeout(() => {
+        snackbar.className = snackbar.className.replace("show", "");
+      }, 3000);
+    }
+  }, [location]);
+
   return (
-    <div className="coreComponent">
+    <div className="homePage">
+      <div id="savedProgress">Progress saved.</div>
       <h1>trAIner</h1>
       <br></br>
       <div>

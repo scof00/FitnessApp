@@ -71,7 +71,7 @@ export const UserView = ({ currentUser }) => {
         />
         <Route
           path="workouts/inprogress/:workoutId"
-          element={<WorkoutInProgress currentUser={currentUser} />}
+          element={<WorkoutInProgress currentUser={currentUser}/>}
         />
         <Route
           path="progress"
