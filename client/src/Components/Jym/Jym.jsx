@@ -1,60 +1,196 @@
-import React, { useState } from 'react';
-import './Jym.css'; // Import the CSS file for styling
+import React, { useEffect, useState } from "react";
+import "./Jym.css"; // Import the CSS file for styling
+import { CreateWorkout } from "../../Managers/WorkoutManager";
+import { createStarterExercise } from "../../Managers/ExerciseManager";
+import { CreateWorkoutExercise } from "../../Managers/WorkoutExerciseManager";
+import { json, useNavigate } from "react-router-dom";
 
-export const Jym = () => {
-  const [inputText, setInputText] = useState('');
+export const Jym = ({ currentUser }) => {
+  const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [suggestedExercises, setSuggestedExercises] = useState([]); // To store exercises
+  const [suggestedWorkoutName, setSuggestedWorkoutName] = useState(""); // To store workout name
+  const [confirmWorkoutCreation, setConfirmWorkoutCreation] = useState(false);
+  const navigate = useNavigate();
+
+  const chatGptPrompt = `
+  Please create a workout plan with a workout name and a list of exercises. 
+  For muscle group, here are the options (without comments): [
+  {
+    "id": 1,
+    "name": "Chest"
+  },
+  {
+    "id": 2,
+    "name": "Back"
+  },
+  {
+    "id": 3,
+    "name": "Legs"
+  },
+  {
+    "id": 4,
+    "name": "Biceps"
+  },
+  {
+    "id": 5,
+    "name": "Triceps"
+  },
+  {
+    "id": 6,
+    "name": "Shoulders"
+  },
+  {
+    "id": 7,
+    "name": "Abs"
+  },
+  {
+    "id": 8,
+    "name": "Cardio & Others"
+  }
+]
+  Format the response like this (without comments): 
+  {
+    "workout_name": "Workout Name",
+    "exercises": [ {
+        "name": "Exercise Name",
+        "sets": Number of sets (e.g. 3),
+        "reps": Number of reps per set (e.g. 12),
+        "weight": Weight to use in pounds or kilograms (e.g. 50kg or bodyweight),
+        "muscleGroup": Dominant muscle group Id that the exercise targets (limit 1)
+      },
+       {
+        "name": "Exercise Name",
+        "sets": Number of sets (e.g. 3),
+        "reps": Number of reps per set (e.g. 12),
+        "weight": Weight to use in pounds or kilograms (e.g. 50kg or bodyweight),
+        "muscleGroup": Dominant muscle group Id that the exercise targets (limit 1)
+      }],
+      "confirmationMessage": "Do you want me to create this workout for you? If so respond with: Create this Workout."
+  }`;
+  const handleChatGptResponse = (message) => {
+    console.log("Raw ChatGPT Response:", message);
+    try {
+      
+      const parsedResponse = JSON.parse(message); // Parse the response as JSON
+      const workoutName = parsedResponse.workout_name;
+      const exercises = parsedResponse.exercises;
+      const confirmationMessage = parsedResponse.confirmation;
+  
+      // Set the state for workout name and suggested exercises
+      setSuggestedWorkoutName(workoutName);
+      setSuggestedExercises(exercises);
+  
+      // Log the values in a useEffect to check if they update correctly
+      console.log('Suggested Workout Name:', workoutName);
+      console.log('Suggested Exercises:', exercises);
+    } catch (error) {
+      console.error("Error parsing ChatGPT response:", error, "Response content:", message);
+    }
+  };
+  
+  // Add a useEffect to monitor changes in suggestedWorkoutName and suggestedExercises
+  useEffect(() => {
+    console.log('Updated Workout Name:', suggestedWorkoutName);
+    console.log('Updated Exercises:', suggestedExercises);
+  }, [suggestedWorkoutName, suggestedExercises]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!inputText) return;
+    if(inputText === "Create this Workout"){
+      const newWorkout = {
+        name: suggestedWorkoutName,
+        userId: currentUser.id,
+      };
+      console.log(newWorkout)
+      CreateWorkout(newWorkout).then((workoutId) => {
+        if (workoutId) {
+          suggestedExercises.map((exercises) => {
+            const newExercise = {
+              muscleId: exercises.muscleGroup,
+              name: exercises.name,
+              userId: currentUser.id,
+            };
+            createStarterExercise(newExercise).then((exerciseId) => {
+              if (exerciseId) {
+                const workoutExercise = {
+                  workoutId: workoutId,
+                  exerciseId: exerciseId,
+                };
+                CreateWorkoutExercise(workoutExercise);
+              }
+            });
+          });
+        }
+      }).then(navigate("/home"))
+    }
+    else {
 
-    // Add user's message to the message thread
-    setMessages((prev) => [...prev, { role: 'user', content: inputText }]);
-    setIsLoading(true);
-    setInputText(''); // Clear input field
-
-    try {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [
-            {
-              role: "user",
-              content: inputText,
+      
+      // Add user's message to the message thread
+      setMessages((prev) => [...prev, { role: "user", content: inputText }]);
+      setIsLoading(true);
+      setInputText(""); // Clear input field
+      
+      try {
+        const response = await fetch(
+          "https://api.openai.com/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
             },
-          ],
-        }),
-      });
-
+            body: JSON.stringify({
+              model: "gpt-4o-mini",
+              messages: [
+                {
+                  role: "user",
+                  content: inputText + chatGptPrompt,
+                },
+            ],
+          }),
+        }
+      );
+      
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      
       const data = await response.json();
-
+      
       if (data.choices && data.choices.length > 0) {
         // Add ChatGPT's response to the message thread
+        const chatGptMessage = data.choices[0]?.message?.content?.trim();
         setMessages((prev) => [
           ...prev,
-          { role: 'assistant', content: data.choices[0].message.content.trim() },
+          { role: "assistant", content: chatGptMessage },
         ]);
+        
+        // Extract workout details from ChatGPT response
+        handleChatGptResponse(chatGptMessage);
       } else {
-        setMessages((prev) => [...prev, { role: 'assistant', content: "Error: No response from API." }]);
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Error: No response from API." },
+        ]);
       }
     } catch (error) {
       console.error("Error fetching response from OpenAI:", error);
-      setMessages((prev) => [...prev, { role: 'assistant', content: "Error: Could not fetch response. Please try again." }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Error: Could not fetch response. Please try again.",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
+}
 
   return (
     <div className="chat-container">
@@ -74,7 +210,7 @@ export const Jym = () => {
           required
         />
         <button type="submit" className="exerciseButton" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Send'}
+          {isLoading ? "Loading..." : "Send"}
         </button>
       </form>
     </div>
