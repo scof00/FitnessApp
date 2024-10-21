@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Jym.css"; // Import the CSS file for styling
 import { CreateWorkout } from "../../Managers/WorkoutManager";
-import { createStarterExercise } from "../../Managers/ExerciseManager";
+import { createStarterExercise, GetExerciseByUserId } from "../../Managers/ExerciseManager";
 import { CreateWorkoutExercise } from "../../Managers/WorkoutExerciseManager";
 import { json, useNavigate } from "react-router-dom";
 
@@ -12,7 +12,12 @@ export const Jym = ({ currentUser }) => {
   const [suggestedExercises, setSuggestedExercises] = useState([]); // To store exercises
   const [suggestedWorkoutName, setSuggestedWorkoutName] = useState(""); // To store workout name
   const [confirmWorkoutCreation, setConfirmWorkoutCreation] = useState(false);
+  const [userExercises, setUserExercises] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    GetExerciseByUserId(currentUser.id).then((data) => setUserExercises(data))
+  },[])
 
   const chatGptPrompt = `
   Please create a workout plan with a workout name and a list of exercises. 
@@ -107,25 +112,133 @@ export const Jym = ({ currentUser }) => {
       console.log(newWorkout)
       CreateWorkout(newWorkout).then((workoutId) => {
         if (workoutId) {
-          suggestedExercises.map((exercises) => {
-            const newExercise = {
-              muscleId: exercises.muscleGroup,
-              name: exercises.name,
-              userId: currentUser.id,
-            };
-            createStarterExercise(newExercise).then((exerciseId) => {
+          const exercisePromises = suggestedExercises.map(async (exercise) => {
+            // Check if the exercise already exists for the user
+            const existingExercise = userExercises.find(ue => ue.name === exercise.name);
+            
+            if (existingExercise) {
+              // If it exists, create a bridge table entry
+              return CreateWorkoutExercise({
+                workoutId: workoutId,
+                exerciseId: existingExercise.id,
+              });
+            } else {
+              // If it doesn't exist, create the new exercise
+              const newExercise = {
+                muscleId: exercise.muscleGroup,
+                name: exercise.name,
+                userId: currentUser.id,
+              };
+              const exerciseId = await createStarterExercise(newExercise);
               if (exerciseId) {
-                const workoutExercise = {
+                // Create the bridge table entry for the new exercise
+                return CreateWorkoutExercise({
                   workoutId: workoutId,
                   exerciseId: exerciseId,
-                };
-                CreateWorkoutExercise(workoutExercise);
+                });
               }
-            });
+            }
           });
+  
+          // Wait for all promises to resolve
+          // await Promise.all(exercisePromises);
+          navigate("/home");
         }
-      }).then(navigate("/home"))
+          
+      //     suggestedExercises.map((exercises) => {
+      //       userExercises.some((ue) => {
+      //         if(ue.name === exercises.name){
+      //           const workoutExercise ={
+      //             workoutId: workoutId,
+      //             exerciseId:ue.id
+      //           }
+      //           CreateWorkoutExercise(workoutExercise)
+      //         } else{
+      //           const newExercise = {
+      //             muscleId: exercises.muscleGroup,
+      //             name: exercises.name,
+      //             userId: currentUser.id,
+      //           };
+      //           createStarterExercise(newExercise).then((exerciseId) => {
+      //             if (exerciseId) {
+      //               const workoutExercise = {
+      //                 workoutId: workoutId,
+      //                 exerciseId: exerciseId,
+      //               };
+      //               CreateWorkoutExercise(workoutExercise);
+      //             }
+      //           });
+
+      //         }
+      //       })
+      //     });
+      //   }
+      // }).then(navigate("/home")
+    })
+    } else if (inputText.includes("make a workout") || inputText.includes("create a workout") || inputText.includes("Create a workout") || inputText.includes("Make a workout")){
+      
+      
+      // Add user's message to the message thread
+      setMessages((prev) => [...prev, { role: "user", content: inputText }]);
+      setIsLoading(true);
+      setInputText(""); // Clear input field
+      
+      try {
+        const response = await fetch(
+          "https://api.openai.com/v1/chat/completions",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: "gpt-4o-mini",
+              messages: [
+                {
+                  role: "user",
+                  content: inputText + chatGptPrompt,
+                },
+            ],
+          }),
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.choices && data.choices.length > 0) {
+        // Add ChatGPT's response to the message thread
+        const chatGptMessage = data.choices[0]?.message?.content?.trim();
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: chatGptMessage },
+        ]);
+        
+        // Extract workout details from ChatGPT response
+        handleChatGptResponse(chatGptMessage);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: "Error: No response from API." },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error fetching response from OpenAI:", error);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: "Error: Could not fetch response. Please try again.",
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
     }
+  }
     else {
 
       
@@ -148,7 +261,7 @@ export const Jym = ({ currentUser }) => {
               messages: [
                 {
                   role: "user",
-                  content: inputText + chatGptPrompt,
+                  content: inputText
                 },
             ],
           }),
