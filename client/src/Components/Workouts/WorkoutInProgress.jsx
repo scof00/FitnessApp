@@ -31,8 +31,8 @@ export const WorkoutInProgress = ({ currentUser }) => {
   const [recommendationData, setRecommendationData] = useState([]);
   const navigate = useNavigate();
   const [exitModal, setExitModal] = useState(false);
-  const toggle = () => setModal(!modal);
   const toggleExit = () => setExitModal(!exitModal);
+  const toggle = () => setModal(!modal);
 
   useEffect(() => {
     GetWorkoutById(workoutId).then((data) => setWorkout(data));

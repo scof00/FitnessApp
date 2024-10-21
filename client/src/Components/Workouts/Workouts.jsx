@@ -24,10 +24,10 @@ export const Workouts = ({ currentUser }) => {
   const [toolTipOpen1, setToolTipOpen1] = useState(false);
   const [toolTipOpen2, setToolTipOpen2] = useState(false);
   const [toolTipOpen3, setToolTipOpen3] = useState(false);
-  const [toolTipOpen4, setToolTipOpen4] = useState(false);
   const toggle1 = () => setToolTipOpen1(!toolTipOpen1);
   const toggle2 = () => setToolTipOpen2(!toolTipOpen2);
   const toggle3 = () => setToolTipOpen3(!toolTipOpen3);
+  const [toolTipOpen4, setToolTipOpen4] = useState(false);
   const toggle4 = () => setToolTipOpen4(!toolTipOpen4);
   const [modal, setModal] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -78,6 +78,14 @@ export const Workouts = ({ currentUser }) => {
       </div>
       
       <h2>Your Workouts</h2>
+      {/* <Button
+        color="info"
+        className="recommendationsButton"
+        outline
+        onClick={()=> navigate("/workouts/freestyle")}
+      >
+        Freestyle
+      </Button> */}
       <Accordion
         defaultActiveKey="0"
         className="accordion"

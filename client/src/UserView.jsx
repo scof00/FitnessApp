@@ -19,6 +19,7 @@ import { Jym } from "./Components/Jym/Jym";
 import { UserProfile } from "./Components/UserProfile/UserProfile";
 import { BiometricsEdit } from "./Components/UserProfile/UserProfileEdit";
 import { BiometricsCreate } from "./Components/UserProfile/BiometricsCreate";
+import { WorkoutFreestyle } from "./Components/Workouts/WorkoutsFreestyle";
 
 export const UserView = ({ currentUser }) => {
   return (
@@ -69,9 +70,13 @@ export const UserView = ({ currentUser }) => {
           path="workouts/edit/:workoutId"
           element={<WorkoutEdit currentUser={currentUser} />}
         />
+        {/* <Route
+          path="workouts/freestyle"
+          element={<WorkoutFreestyle currentUser={currentUser} />}
+        /> */}
         <Route
           path="workouts/inprogress/:workoutId"
-          element={<WorkoutInProgress currentUser={currentUser}/>}
+          element={<WorkoutInProgress currentUser={currentUser} />}
         />
         <Route
           path="progress"
