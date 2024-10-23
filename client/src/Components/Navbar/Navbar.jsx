@@ -18,33 +18,25 @@ export const Navbar = () => {
   return (
     <div className="navbar">
       <div>
-        <Link to="/home" className={isActive('/home') ? 'active' : ''}>
-          <HouseFill type="button" className="btn btn-primary">
-            
-          </HouseFill>
+        <Link to="/home" className={isActive("/home") ? "active" : ""}>
+          <HouseFill type="button" className="btn btn-primary"></HouseFill>
         </Link>
-        <Link to="jym" className={isActive('/jym') ? 'active' : ''}>
+        <Link to="jym" className={isActive("/jym") ? "active" : ""}>
           <button type="button" id="jymButton" className="btn btn-primary">
-            <div>
-              <img className="navbarLogo" src={TrainerLogo}></img>
-              Jym
-            </div>
+            <img className="navbarLogo" src={TrainerLogo}></img>
+            Jym
           </button>
         </Link>
-        <Link to="workouts" className={isActive('/workouts') ? 'active' : ''}>
+        <Link to="workouts" className={isActive("/workouts") ? "active" : ""}>
           <button type="button" className="btn btn-primary">
-            <div>
-              <img className="navbarLogo" src={WorkoutLogo}></img>
-              Workouts
-            </div>
+            <img className="navbarLogo" src={WorkoutLogo}></img>
+            Workouts
           </button>
         </Link>
-        <Link to="exercises" className={isActive('/exercises') ? 'active' : ''}>
+        <Link to="exercises" className={isActive("/exercises") ? "active" : ""}>
           <button type="button" className="btn btn-primary">
-            <div>
-              <img className="navbarLogo" src={ExerciseLogo}></img>
-              Exercises
-            </div>
+            <img className="navbarLogo" src={ExerciseLogo}></img>
+            Exercises
           </button>
         </Link>
         {/* <Link to="progress">
@@ -61,7 +53,10 @@ export const Navbar = () => {
           <img className="navbarLogo" src={DietTrackerLogo}></img>
           Diet
         </button> */}
-        <Link to="userprofile" className={isActive('/userprofile') ? 'active' : ''}>
+        <Link
+          to="userprofile"
+          className={isActive("/userprofile") ? "active" : ""}
+        >
           <button type="button" className="btn btn-primary">
             <img className="navbarLogo" src={BiometricsLogo}></img>
             Profile
@@ -73,15 +68,14 @@ export const Navbar = () => {
         </button>
         <button type="button" className="btn btn-primary">
           <BoxArrowRight
-          className="navbarLogo"
+            className="navbarLogo"
             onClick={() => {
               logout();
               navigate("/");
               window.location.reload();
             }}
-          >
-          </BoxArrowRight>
-            Logout
+          ></BoxArrowRight>
+          Logout
         </button>
       </div>
     </div>

@@ -3,14 +3,25 @@
     flex-direction: column;
     height: 100vh; /* Full viewport height */
     overflow: hidden;
-    width: 85vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 84vw;
+    background-color: #f9f9f9;
+    
+  }
+
+  .chat-container::-webkit-scrollbar {
+    display: none;
   }
   
   .messages-container {
-    flex: 1; /* Allow this to take up remaining space */
+    flex: 1; 
     overflow-y: auto; /* Enable scrolling for message overflow */
     padding: 10px;
     background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
   }
   
   .message {
@@ -24,12 +35,14 @@
     align-self: flex-end; /* Align user's messages to the right */
     background-color: #0084ff; /* User message background color */
     color: white;
+    text-align: left;
   }
   
   .assistant {
     align-self: flex-start; /* Align assistant's messages to the left */
     background-color: #e0e0e0; /* Assistant message background color */
     color: black;
+    text-align: left;
   }
   
   .input-container {
