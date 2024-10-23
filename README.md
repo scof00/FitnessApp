@@ -1,5 +1,10 @@
 # trAIner
 
+## Demonstration
+
+Link to full screen demonstration: `https://drive.google.com/file/d/1FSM-QYlTOSM1LfZd1LW37HqgidrRV5gV/view?usp=sharing`
+Link to phone screen demonstration: `https://drive.google.com/file/d/1d5jACuU7_O6byEllkAlBsVGmtMl4iFKT/view?usp=sharing`
+
 ## Setup
 
 1. Clone this repository.
