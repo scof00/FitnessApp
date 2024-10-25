@@ -116,7 +116,7 @@ export const Register = ({ setIsLoggedIn }) => {
         })
         .then(login(username, password))
         .then(setIsLoggedIn(true))
-        .then(navigate("/home"));
+        .then(navigate("/login", { state: { message: "Progress saved." } }));
     }
   };
 

@@ -142,7 +142,7 @@ export const Jym = ({ currentUser }) => {
   
           // Wait for all promises to resolve
           // await Promise.all(exercisePromises);
-          navigate("/home");
+          navigate("/home", { state: { message: "Workout created." } });
         }
           
       //     suggestedExercises.map((exercises) => {

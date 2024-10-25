@@ -37,7 +37,7 @@ export const Home = ({ currentUser }) => {
 
   return (
     <div className="homePage">
-      <div id="savedProgress">Progress saved.</div>
+      <div id="savedProgress">{location?.state?.message}</div>
       <h1>trAIner</h1>
       <br></br>
       <div>
