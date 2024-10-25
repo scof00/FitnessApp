@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormGroup } from "react-bootstrap";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Form, Link, useLocation, useNavigate } from "react-router-dom";
 import { Input, Label } from "reactstrap";
 import { GetAllUsers, login } from "../../Managers/UserManager";
 import { Button } from "bootstrap";
@@ -60,8 +60,25 @@ export const Login = ({setIsLoggedIn}) => {
    }
   }
 
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if the location state contains a message
+    if (location.state && location.state.message) {
+      // Display the snackbar
+      const snackbar = document.getElementById("savedLogin");
+      snackbar.className = "show"; // Add the "show" class to display the snackbar
+
+      // Hide the snackbar after 3 seconds
+      setTimeout(() => {
+        snackbar.className = snackbar.className.replace("show", "");
+      }, 3000);
+    }
+  }, [location]);
+
   return (
     <form className="loginForm">
+      <div id="savedLogin">User created. Please login.</div>
       <h1>trAIner</h1>
       <div id="invalidLogin">Invalid username or password.</div>
       <fieldset>
